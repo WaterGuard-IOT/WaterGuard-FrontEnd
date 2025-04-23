@@ -1,21 +1,38 @@
 <app-toolbar></app-toolbar>
-<div class="container">
-    <div class="profile-section">
-      <img src="assets/images/icon-profile.png" alt="User Icon" class="user-icon">
-      
-      <form class="profile-form">
-        <label>Name:</label>
-        <input type="text" name="name">
-        
-        <label>LastName:</label>
-        <input type="text" name="lastName">
-        
-        <label>Email:</label>
-        <input type="email" name="email">
-        
-        <label>Type User:</label>
-        <input type="text" name="typeUser">
-      </form>
+
+<div class="profile-wrapper">
+  <div class="profile-container">
+    
+    <div class="profile-image">
+      <img src="assets/images/user-icon.png" alt="User Icon" />
+    </div>
+
+    
+    <div class="profile-details">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" [value]="name || 'N/A'" readonly />
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" [value]="lastName || 'N/A'" readonly />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" [value]="email || 'N/A'" readonly />
+      </div>
+
+      <div class="form-group">
+        <label for="typeUser">Type User:</label>
+        <input type="text" id="typeUser" [value]="typeUser || 'N/A'" readonly />
+      </div>
     </div>
   </div>
+
   
+  <div class="profile-footer">
+    <img src="assets/images/logo.png" alt="WaterGuard Logo" />
+  </div>
+</div>

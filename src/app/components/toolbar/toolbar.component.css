@@ -34,3 +34,13 @@
     height: 24px;
   }
   
+  .logout-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .logout-button img {
+    width: 24px;
+    height: 24px;
+  }

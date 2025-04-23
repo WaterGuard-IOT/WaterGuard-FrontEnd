@@ -1,16 +1,18 @@
 <div class="toolbar">
-    <div class="left-section">
-      <img src="assets/images/logo.png" alt="Logo" class="logo" />
-      <span class="app-name">WaterGuard</span>
-    </div>
-  
-    <div class="right-section" *ngIf="showIcons">
-      <button routerLink="/home" title="Home">
-        <img src="assets/images/icon-home.png" alt="Home" />
-      </button>
-      <button routerLink="/profile" title="Profile">
-        <img src="assets/images/icon-profile.png" alt="Profile" />
-      </button>
-    </div>
+  <div class="left-section">
+    <img src="assets/images/logo.png" alt="Logo" class="logo" />
+    <span class="app-name">WaterGuard</span>
   </div>
-  
+
+  <div class="right-section" *ngIf="showIcons">
+    <button routerLink="/home" title="Home">
+      <img src="assets/images/icon-home.png" alt="Home" />
+    </button>
+    <button routerLink="/profile" title="Profile">
+      <img src="assets/images/icon-profile.png" alt="Profile" />
+    </button>
+    <button (click)="logout()" title="Cerrar Sesión" class="logout-button">
+      <img src="assets/images/icon-logout.png" alt="Logout" />
+    </button>
+  </div>
+</div>
