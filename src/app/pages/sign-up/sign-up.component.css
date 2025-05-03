@@ -1,59 +1,100 @@
 .register-container {
-    background-color: #84b6f4;
-    padding: 40px;
-    border-radius: 20px;
-    max-width: 800px;
-    margin: auto;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    text-align: center;
+  background-color: #84b6f4;
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 800px;
+  margin: 50px auto; /* Ajusta la separación con el toolbar */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px; /* Aumenta el espaciado entre los elementos del formulario */
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 38px; /* Aumenta el espaciado entre los inputs en la misma fila */
+}
+
+.input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+label {
+  margin-bottom: 8px; /* Aumenta el margen inferior para separar las etiquetas de los inputs */
+  font-weight: bold;
+}
+
+input {
+  padding: 12px;
+  width: 100%; /* Asegura que los inputs ocupen todo el ancho disponible */
+  border: none;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.register-btn {
+  margin-top: 20px;
+  padding: 12px 40px;
+  background-color: #4cd964;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.register-btn:hover {
+  background-color: #45c157;
+}
+
+/* Media queries para pantallas medianas */
+@media (max-width: 768px) {
+  .register-container {
+    padding: 30px 20px 50px; /* Agrega padding horizontal (20px) */
+    max-width: 85%; /* Reduce el ancho máximo */
   }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
+
   .row {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
+    flex-direction: column; /* Cambia a diseño vertical */
+    gap: 20px; /* Ajusta el espaciado entre filas */
   }
-  
-  .input-group {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  label {
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
+
   input {
-    padding: 10px;
-    width: 80%;
-    border: none;
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    font-size: 16px;
+    font-size: 14px; /* Reduce el tamaño del texto */
   }
-  
+
   .register-btn {
-    margin-top: 20px;
-    padding: 12px 40px;
-    background-color: #4cd964;
-    color: black;
-    font-size: 18px;
-    font-weight: bold;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
+    font-size: 16px; /* Ajusta el tamaño del botón */
+    padding: 10px 30px;
   }
-  
-  .register-btn:hover {
-    background-color: #45c157;
+}
+
+/* Media queries para pantallas pequeñas (teléfonos) */
+@media (max-width: 480px) {
+  .register-container {
+    padding: 20px 15px 40px; /* Agrega padding horizontal (15px) */
   }
-  
+
+  label {
+    font-size: 14px; /* Reduce el tamaño de las etiquetas */
+  }
+
+  input {
+    font-size: 12px; /* Ajusta el tamaño del texto en los inputs */
+  }
+
+  .register-btn {
+    font-size: 14px; /* Ajusta el tamaño del botón */
+    padding: 8px 20px;
+  }
+}
