@@ -14,6 +14,19 @@
     border-radius: 8px;
   }
   
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .pdf-icon {
+    width: 28px;
+    height: auto;
+    cursor: pointer;
+  }
+  
   .object-header {
     display: flex;
     justify-content: space-between;

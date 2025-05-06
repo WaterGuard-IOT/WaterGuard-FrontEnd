@@ -3,21 +3,24 @@
   padding: 40px;
   border-radius: 20px;
   max-width: 800px;
-  margin: 50px auto; /* Ajusta la separación con el toolbar */
+  margin: 50px auto; 
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   text-align: center;
+  box-sizing: border-box; 
+  overflow: hidden; 
+  width: 90%; 
 }
 
 form {
   display: flex;
   flex-direction: column;
-  gap: 25px; /* Aumenta el espaciado entre los elementos del formulario */
+  gap: 25px; 
 }
 
 .row {
   display: flex;
   justify-content: space-between;
-  gap: 38px; /* Aumenta el espaciado entre los inputs en la misma fila */
+  gap: 20px; 
 }
 
 .input-group {
@@ -28,17 +31,18 @@ form {
 }
 
 label {
-  margin-bottom: 8px; /* Aumenta el margen inferior para separar las etiquetas de los inputs */
+  margin-bottom: 8px; 
   font-weight: bold;
 }
 
 input {
   padding: 12px;
-  width: 100%; /* Asegura que los inputs ocupen todo el ancho disponible */
+  width: 100%; 
   border: none;
   background-color: #f0f0f0;
   border-radius: 5px;
   font-size: 16px;
+  box-sizing: border-box; 
 }
 
 .register-btn {
@@ -57,44 +61,46 @@ input {
   background-color: #45c157;
 }
 
-/* Media queries para pantallas medianas */
+
 @media (max-width: 768px) {
   .register-container {
-    padding: 30px 20px 50px; /* Agrega padding horizontal (20px) */
-    max-width: 85%; /* Reduce el ancho máximo */
+    padding: 30px 20px 50px; 
+    max-width: 85%; 
+    width: 95%; 
   }
 
   .row {
-    flex-direction: column; /* Cambia a diseño vertical */
-    gap: 20px; /* Ajusta el espaciado entre filas */
+    flex-direction: column; 
+    gap: 20px; 
   }
 
   input {
-    font-size: 14px; /* Reduce el tamaño del texto */
+    font-size: 14px; 
   }
 
   .register-btn {
-    font-size: 16px; /* Ajusta el tamaño del botón */
+    font-size: 16px; 
     padding: 10px 30px;
   }
 }
 
-/* Media queries para pantallas pequeñas (teléfonos) */
+
 @media (max-width: 480px) {
   .register-container {
-    padding: 20px 15px 40px; /* Agrega padding horizontal (15px) */
+    padding: 20px 15px 40px; 
+    width: 95%; 
   }
 
   label {
-    font-size: 14px; /* Reduce el tamaño de las etiquetas */
+    font-size: 14px; 
   }
 
   input {
-    font-size: 12px; /* Ajusta el tamaño del texto en los inputs */
+    font-size: 12px; 
   }
 
   .register-btn {
-    font-size: 14px; /* Ajusta el tamaño del botón */
+    font-size: 14px; 
     padding: 8px 20px;
   }
 }
