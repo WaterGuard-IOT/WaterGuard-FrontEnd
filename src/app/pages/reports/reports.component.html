@@ -1,0 +1,51 @@
+<app-toolbar></app-toolbar>
+
+<div class="reports-container">
+  <div class="card">
+    <h2>Resumen General</h2>
+
+    <div class="summary-card green">
+      <div class="icon">
+        <img src="assets/images/icon-tank.png" alt="Tanque" />
+      </div>
+      <div class="content">
+        <div><strong>85%</strong> Activas</div>
+        <div>Estable</div>
+      </div>
+    </div>
+
+    <div class="summary-card blue">
+      <div class="icon">
+        <img src="assets/images/icon-consume.png" alt="Consumo" />
+      </div>
+      <div class="content">
+        <div><strong>0</strong> Activas</div>
+        <div>+5% vs ayer</div>
+      </div>
+    </div>
+
+    <div class="summary-card red">
+      <div class="icon">
+        <img src="assets/images/icon-alert.png" alt="Fugas" />
+      </div>
+      <div class="content">
+        <div><strong>0</strong> Activas</div>
+        <div>Normal</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Acciones rápidas</h2>
+
+    <button class="action-btn" routerLink="/home">
+      Ver Consumo detallado
+      <span class="arrow">➔</span>
+    </button>
+
+    <button class="action-btn">
+      Ver dispositivo
+      <span class="arrow">➔</span>
+    </button>
+  </div>
+</div>

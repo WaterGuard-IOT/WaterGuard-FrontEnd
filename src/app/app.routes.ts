@@ -4,6 +4,8 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { HomeComponent } from './pages/home/home.component';
 import { authGuard } from './shared/auth-guard/auth.guard'; 
+import { SettingComponent } from './pages/setting/setting.component';
+import { ReportsComponent } from './pages/reports/reports.component';
 
 export const routes: Routes = [
   {
@@ -28,5 +30,15 @@ export const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     canActivate: [authGuard] 
+  },
+  {
+    path: 'settings',
+    component: SettingComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'reports',
+    component: ReportsComponent,
+    canActivate: [authGuard]
   }
 ];

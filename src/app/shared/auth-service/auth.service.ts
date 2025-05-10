@@ -13,6 +13,7 @@ export class AuthService {
   
   setUser(user: Users): void {
     localStorage.setItem(this.currentUserKey, JSON.stringify(user));
+    localStorage.setItem('userId', String(user.id)); // ← ESTA LÍNEA ES CLAVE
   }
 
   /** Obtiene el usuario desde localStorage */

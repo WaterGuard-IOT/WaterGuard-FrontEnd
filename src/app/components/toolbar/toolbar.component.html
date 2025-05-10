@@ -5,14 +5,17 @@
   </div>
 
   <div class="right-section" *ngIf="showIcons">
-    <button routerLink="/home" title="Home">
+    <button routerLink="/home" title="Inicio">
       <img src="assets/images/icon-home.png" alt="Home" />
     </button>
-    <button routerLink="/profile" title="Profile">
-      <img src="assets/images/icon-profile.png" alt="Profile" />
+    <button routerLink="/reports" title="Reports">
+      <img src="assets/images/icon-docs.png" alt="Reports" />
     </button>
-    <button (click)="logout()" title="Cerrar Sesión" class="logout-button">
-      <img src="assets/images/icon-logout.png" alt="Logout" />
+    <button routerLink="/settings" title="Configuración">
+      <img src="assets/images/icon-settings.png" alt="Settings" />
+    </button>
+    <button routerLink="/profile" title="Perfil" class="profile-button">
+      <img src="assets/images/icon-profile.png" alt="Profile" />
     </button>
   </div>
 </div>

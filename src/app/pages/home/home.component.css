@@ -1,82 +1,113 @@
+/* Contenedor general */
 .home-container {
-    background-color: #d3d3d3;
-    min-height: calc(100vh - 120px);
-    padding: 20px;
-  }
-  
-  h2 {
-    margin-bottom: 20px;
-  }
-  
-  .card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-  }
-  
-  .header-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .pdf-icon {
-    width: 28px;
-    height: auto;
-    cursor: pointer;
-  }
-  
-  .object-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .actions .btn {
-    margin-left: 10px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    padding: 8px 12px;
-    cursor: pointer;
-  }
-  
-  .object-details {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin-top: 20px;
-    gap: 10px;
-  }
-  
-  .detail {
-    background-color: #f9f9f9;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  
-  .tabs {
-    display: flex;
-    margin-top: 30px;
-    overflow-x: auto;
-  }
-  
-  .tab {
-    background-color: #e0e0e0;
-    border: none;
-    padding: 10px 15px;
-    margin-right: 10px;
-    cursor: pointer;
-  }
-  
-  .tab.active {
-    border-bottom: 3px solid black;
-  }
-  
-  .attributes {
-    background-color: #f9f9f9;
-    padding: 20px;
-    margin-top: 20px;
-    text-align: center;
-    border-radius: 5px;
-  }
-  
+  background-color: #f4f4f4;
+  min-height: calc(100vh - 120px);
+  padding: 20px;
+}
+
+/* Título */
+h2 {
+  margin-bottom: 20px;
+}
+
+/* Tarjetas principales */
+.card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 25px;
+}
+
+/* Encabezados */
+.object-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.object-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.detail {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+/* Icono PDF */
+.pdf-icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+/* Estado del Agua: línea con ícono */
+.water-status-detail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+/* Tabla de tendencias */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+thead {
+  background-color: #efefef;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  text-align: left;
+}
+
+/* Alertas visuales */
+.alert-box {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.alert-box.ph {
+  background-color: #fff9c4;
+  border-left: 8px solid #fbc02d;
+}
+
+.alert-box.temperatura {
+  background-color: #ffcdd2;
+  border-left: 8px solid #e53935;
+}
+
+.alert-box.volumen {
+  background-color: #d0f0fd;
+  border-left: 8px solid #0288d1;
+}
+
+.alert-icon {
+  font-size: 24px;
+}
+
+/* Header de PDF y título */
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}

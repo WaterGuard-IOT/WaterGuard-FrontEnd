@@ -1,0 +1,65 @@
+.settings-container {
+  margin-top: 80px; /* separa el contenedor del toolbar */
+  padding: 2rem;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+mat-expansion-panel {
+  margin-bottom: 1.5rem;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+mat-expansion-panel-header {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.panel-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 1rem 1.5rem 1rem 1.5rem;
+}
+
+.panel-links a {
+  background-color: #f4f4f4;
+  border-radius: 4px;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #1a73e8;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.panel-links a:hover {
+  background-color: #e8f0fe;
+}
+
+.logout-icon {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.logout-icon img {
+  width: 36px;
+  height: 36px;
+}

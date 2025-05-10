@@ -1,51 +1,80 @@
 <app-toolbar></app-toolbar>
+
 <div class="home-container">
+
+  <!-- Header superior -->
   <div class="header-row">
     <h2>Viewing the AWS Console - Tank water</h2>
-    <img class="pdf-icon" src="assets/images/pdf-icon.png" alt="PDF" />
+    <img
+      src="assets/images/pdf-icon.png"
+      alt="Descargar PDF"
+      class="pdf-icon"
+      (click)="openModal()"
+    />
   </div>
-  
-  
-    <div class="card">
-      <div class="object-header">
-        <h3>waterGuard-tank</h3>
-        <div class="actions">
-          <button class="btn">Crear túnel seguro</button>
-          <button class="btn">Editar</button>
-          <button class="btn">Eliminar</button>
-        </div>
-      </div>
-      <div class="object-details">
-        <div class="detail">
-          <strong>Nombre:</strong> waterGuard-tank
-        </div>
-        <div class="detail">
-          <strong>ARN:</strong> arn:aws:iot:us-east-1:841162700246:thing/waterGuard-tank
-        </div>
-        <div class="detail">
-          <strong>Tipo:</strong> -
-        </div>
-        <div class="detail">
-          <strong>Grupo de facturación:</strong> -
-        </div>
-      </div>
-  
-      <div class="tabs">
-        <button class="tab active">Atributos</button>
-        <button class="tab">Certificados</button>
-        <button class="tab">Grupos de objetos</button>
-        <button class="tab">Sombras de dispositivos</button>
-        <button class="tab">Actividad</button>
-        <button class="tab">Paquetes y versiones</button>
-        <button class="tab">Trabajos</button>
-        <button class="tab">Alarmas</button>
-        <button class="tab">Métricas de Defender</button>
-      </div>
-  
-      <div class="attributes">
-        <h4>Atributos (0)</h4>
-        <p>No hay atributos que mostrar.</p>
+
+  <!-- Modal PDF -->
+  <app-pdf-modal
+    *ngIf="showModal"
+    (confirm)="savePdf()"
+    (closeModal)="closeModal()"
+  ></app-pdf-modal>
+
+  <!-- Estado del Agua -->
+  <div class="card">
+    <h3>Estado del Agua</h3>
+
+    <div class="water-status-detail">
+      <img src="assets/images/ph-icon.png" alt="pH" width="24" />
+      <strong>pH:</strong> {{ waterStatus.ph }}
+    </div>
+
+    <div class="water-status-detail">
+      <img src="assets/images/temperature-icon.png" alt="Temperatura" width="24" />
+      <strong>Temperatura:</strong> {{ waterStatus.temperatura }} °C
+    </div>
+
+    <div class="water-status-detail">
+      <img src="assets/images/volume-icon.png" alt="Volumen" width="24" />
+      <strong>Volumen:</strong> {{ waterStatus.volumen }} %
+    </div>
+  </div>
+
+  <!-- Tendencias Históricas -->
+  <div class="card">
+    <h3>Tendencias Históricas</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>pH</th>
+          <th>Temperatura</th>
+          <th>Volumen</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let trend of trends">
+          <td>{{ trend.fecha }}</td>
+          <td>{{ trend.ph }}</td>
+          <td>{{ trend.temperatura }} °C</td>
+          <td>{{ trend.volumen }} %</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Alertas Recientes -->
+  <div class="card">
+    <h3>Alertas Recientes</h3>
+
+    <div *ngFor="let alerta of alerts" class="alert-box" [ngClass]="alerta.tipo.toLowerCase()">
+      <div class="alert-icon">❗</div>
+      <div>
+        <strong>{{ alerta.tipo }}</strong><br />
+        {{ alerta.mensaje }}
       </div>
     </div>
   </div>
-  
+
+</div>

@@ -1,46 +1,44 @@
 .toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #7ca6d5;
-    padding: 0.5rem 1rem;
-  }
-  
-  .logo {
-    height: 40px;
-    margin-right: 10px;
-  }
-  
-  .app-name {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: white;
-  }
-  
-  .left-section,
-  .right-section {
-    display: flex;
-    align-items: center;
-  }
-  
-  .right-section button {
-    background: none;
-    border: none;
-    margin-left: 1rem;
-    cursor: pointer;
-  }
-  
-  .right-section img {
-    height: 24px;
-  }
-  
-  .logout-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .logout-button img {
-    width: 24px;
-    height: 24px;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2563eb; 
+  padding: 0.5rem 1rem;
+}
+
+.logo {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.app-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+.left-section,
+.right-section {
+  display: flex;
+  align-items: center;
+}
+
+.right-section button {
+  background: none;
+  border: none;
+  margin-left: 1.2rem;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.right-section img {
+  height: 26px;
+  width: 26px;
+  /*filter: brightness(0) invert(1); */
+}
+
+.profile-button {
+  border: 2px solid white;
+  border-radius: 50%;
+  padding: 4px;
+}

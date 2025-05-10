@@ -2,7 +2,7 @@
   "users": [
     {
       "id": "1",
-      "name": "julio",
+      "name": "Julio",
       "lastName": "Asillo",
       "typeUser": "admin",
       "email": "julio@gmail.com",
@@ -10,19 +10,75 @@
     },
     {
       "id": "2",
-      "name": "alexis",
-      "lastName": "patazca",
+      "name": "Alexis",
+      "lastName": "Patazca",
       "typeUser": "admin",
       "email": "alx@gmail.com",
       "password": "123321"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Pepin",
       "lastName": "Perez",
       "typeUser": "admin",
       "email": "pepe@gmail.com",
       "password": "456789"
+    },
+    {
+      "id": "4",
+      "name": "Lucas",
+      "lastName": "Perez",
+      "typeUser": "admin",
+      "email": "lucas@gmail.com",
+      "password": "123321"
+    }
+  ],
+  "waterStatus": [
+    {
+      "userId": 1,
+      "ph": 7.4,
+      "temperatura": 24.7,
+      "volumen": 85
+    },
+    {
+      "userId": 2,
+      "ph": 7.2,
+      "temperatura": 23.9,
+      "volumen": 80
+    }
+  ],
+  "trends": [
+    {
+      "userId": 1,
+      "datos": [
+        { "fecha": "2025-05-05", "ph": 7.2, "temperatura": 23.8, "volumen": 86 },
+        { "fecha": "2025-05-04", "ph": 7.4, "temperatura": 24.5, "volumen": 85 },
+        { "fecha": "2025-05-03", "ph": 7.2, "temperatura": 23.0, "volumen": 84 },
+        { "fecha": "2025-05-02", "ph": 7.4, "temperatura": 23.5, "volumen": 83 },
+        { "fecha": "2025-05-01", "ph": 7.2, "temperatura": 24.0, "volumen": 82 }
+      ]
+    },
+    {
+      "userId": 2,
+      "datos": [
+        { "fecha": "2025-05-05", "ph": 7.1, "temperatura": 23.7, "volumen": 80 },
+        { "fecha": "2025-05-04", "ph": 7.3, "temperatura": 23.9, "volumen": 79 }
+      ]
+    }
+  ],
+  "alerts": [
+    {
+      "userId": 1,
+      "alertas": [
+        { "tipo": "pH", "mensaje": "El nivel de pH está ligeramente elevado" },
+        { "tipo": "Temperatura", "mensaje": "La temperatura está en el límite superior" }
+      ]
+    },
+    {
+      "userId": 2,
+      "alertas": [
+        { "tipo": "Volumen", "mensaje": "El volumen ha bajado por debajo del 80%" }
+      ]
     }
   ]
 }
