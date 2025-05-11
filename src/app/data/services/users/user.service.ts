@@ -7,7 +7,7 @@ import { Users } from '../../models/users/user';
   providedIn: 'root'
 })
 export class UserService {
-  baseUrl = "http://localhost:3000/users";
+  baseUrl = "https://my-json-server.typicode.com/SantosPatazca/my-json-api/users";
 
   httpOptions = {
     headers: new HttpHeaders({

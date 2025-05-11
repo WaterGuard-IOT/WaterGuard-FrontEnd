@@ -7,7 +7,7 @@ import { Alerts } from '../../models/alerts/alert';
   providedIn: 'root'
 })
 export class AlertService {
-  private baseUrl = 'http://localhost:3000/alerts';
+  private baseUrl = 'https://my-json-server.typicode.com/SantosPatazca/my-json-api/alerts';
 
   constructor(private http: HttpClient) {}
 

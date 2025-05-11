@@ -7,7 +7,7 @@ import { WaterStatus } from '../../models/water-status/water-statu';
   providedIn: 'root'
 })
 export class WaterStatusService {
-  private baseUrl = 'http://localhost:3000/waterStatus';
+  private baseUrl = 'https://my-json-server.typicode.com/SantosPatazca/my-json-api/waterStatus';
 
   constructor(private http: HttpClient) {}
 
