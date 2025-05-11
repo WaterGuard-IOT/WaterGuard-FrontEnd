@@ -14,10 +14,12 @@ export class ToolbarComponent {
   showIcons = true;
 
   constructor(private router: Router, private authService: AuthService) {
-    this.router.events.subscribe(() => {
-      const hiddenRoutes = ['/login', '/signup', '/recover-password'];
-      this.showIcons = !hiddenRoutes.includes(this.router.url);
-    });
+    this.router.events.subscribe((event: any) => {
+  const hiddenRoutes = ['/login', '/signup', '/recover-password'];
+  const currentRoute = this.router.url || event.url || '';
+  this.showIcons = !hiddenRoutes.includes(currentRoute);
+});
+
   }
 
   logout() {
