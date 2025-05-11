@@ -7,7 +7,7 @@ import { Trends } from '../../models/trends/trend';
   providedIn: 'root'
 })
 export class TrendsService {
-  private baseUrl = 'https://my-json-server.typicode.com/SantosPatazca/my-json-api/trends';
+  private baseUrl = 'https://json-api-nj61.onrender.com/trends';
 
   constructor(private http: HttpClient) {}
 
