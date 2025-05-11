@@ -52,10 +52,10 @@
       "userId": 1,
       "datos": [
         { "fecha": "2025-05-05", "ph": 7.2, "temperatura": 23.8, "volumen": 86 },
-        { "fecha": "2025-05-04", "ph": 7.4, "temperatura": 24.5, "volumen": 85 },
-        { "fecha": "2025-05-03", "ph": 7.2, "temperatura": 23.0, "volumen": 84 },
-        { "fecha": "2025-05-02", "ph": 7.4, "temperatura": 23.5, "volumen": 83 },
-        { "fecha": "2025-05-01", "ph": 7.2, "temperatura": 24.0, "volumen": 82 }
+        { "fecha": "2025-05-04", "ph": 7.4, "temperatura": 24.5, "volumen": 74 },
+        { "fecha": "2025-05-03", "ph": 7.2, "temperatura": 23.0, "volumen": 90 },
+        { "fecha": "2025-05-02", "ph": 7.4, "temperatura": 23.5, "volumen": 50 },
+        { "fecha": "2025-05-01", "ph": 7.2, "temperatura": 24.0, "volumen": 35 }
       ]
     },
     {

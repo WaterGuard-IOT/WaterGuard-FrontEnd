@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
       this.loadData();
     } else {
       console.warn('No userId found in localStorage.');
-      // Aquí podrías redirigir al login o mostrar mensaje al usuario
+      
     }
   }
 

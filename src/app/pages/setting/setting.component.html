@@ -4,77 +4,62 @@
   <h2>Configuración</h2>
 
   <mat-accordion multi>
-    <!-- Component 1: Sensores -->
+
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>Configuración de sensores</mat-panel-title>
       </mat-expansion-panel-header>
       <div class="panel-links">
-        <a href="#">Calibración de sensores (pH, temp, vol)</a>
-        <a href="#">Configuración de conexión (WIFI, Bluetooth)</a>
-        <a href="#">Estado de batería y mantenimiento</a>
+        <a routerLink="/device">Calibración de sensores (pH, temp, vol)</a>
       </div>
     </mat-expansion-panel>
 
-    <!-- Component 2: Parámetros de alertas -->
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>Parámetros de alertas</mat-panel-title>
       </mat-expansion-panel-header>
       <div class="panel-links">
-        <a href="#">Umbrales personalizados</a>
-        <a href="#">Tiempos de respuesta</a>
-        <a href="#">Prioridad y categorización</a>
+        <a routerLink="/home">Umbrales personalizados</a>
       </div>
     </mat-expansion-panel>
 
-    <!-- Component 3: Notificaciones -->
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>Notificaciones</mat-panel-title>
       </mat-expansion-panel-header>
       <div class="panel-links">
-        <a href="#">Canales (email, SMS, push)</a>
-        <a href="#">Contactos y grupos</a>
-        <a href="#">Programación de informes</a>
+        <a routerLink="/home">Programación de informes</a>
       </div>
     </mat-expansion-panel>
 
-    <!-- Component 4: Perfil y seguridad -->
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>Perfil y seguridad</mat-panel-title>
       </mat-expansion-panel-header>
       <div class="panel-links">
-        <a href="#">Gestión de usuarios y roles</a>
-        <a href="#">Cambiar contraseña y 2FA</a>
-        <a href="#">Historial de inicios de sesión</a>
+        <a routerLink="/profile">Gestión de usuario</a>
+        <a routerLink="/profile">Cambiar contraseña</a>
       </div>
     </mat-expansion-panel>
 
-    <!-- Component 5: Sistema -->
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>Sistema</mat-panel-title>
       </mat-expansion-panel-header>
       <div class="panel-links">
-        <a href="#">Información del dispositivo/servidor</a>
-        <a href="#">Respaldo y sincronización</a>
-        <a href="#">Opciones de almacenamiento</a>
+        <a routerLink="/device">Información del dispositivo/servidor</a>
       </div>
     </mat-expansion-panel>
 
-    <!-- Component 6: Integración -->
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>Integración</mat-panel-title>
       </mat-expansion-panel-header>
       <div class="panel-links">
-        <a href="#">Conexión con otras plataformas</a>
-        <a href="#">APIs y webhooks</a>
-        <a href="#">Exportación automática</a>
+        <a routerLink="/reports">Exportación automática</a>
       </div>
     </mat-expansion-panel>
+
   </mat-accordion>
 
   <button class="logout-icon" (click)="logout()">

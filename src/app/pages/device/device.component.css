@@ -1,0 +1,57 @@
+.device-container {
+  max-width: 1000px;
+  margin: 100px auto 2rem auto; /* espacio bajo el toolbar */
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.device-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.device-icon {
+  width: 60px;
+  height: 60px;
+  margin-right: 1rem;
+}
+
+.status-online {
+  color: green;
+  font-weight: 600;
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.device-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.device-table thead {
+  background-color: #f0f0f0;
+}
+
+.device-table th,
+.device-table td {
+  border: 1px solid #ccc;
+  padding: 0.8rem;
+  text-align: left;
+}
+
+.device-table tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}

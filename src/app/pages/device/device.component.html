@@ -1,0 +1,32 @@
+<app-toolbar></app-toolbar>
+
+<div class="device-container">
+  <div class="device-header">
+    <img src="assets/images/icon-engra.png" alt="Sensor Icon" class="device-icon" />
+    <div>
+      <h2>Sensor de agua - Tanque</h2>
+      <p class="status-online">Online</p>
+    </div>
+  </div>
+
+  <h3>Historial y Reportes</h3>
+
+  <table class="device-table">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Nivel Detectado en el Tanque</th>
+        <th>Acción</th>
+        <th>Resultado Esperado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let t of trends">
+        <td>{{ t.fecha }}</td>
+        <td>{{ t.volumen }}%</td>
+        <td>{{ mapVolumenToMensajes(t.volumen).accion }}</td>
+        <td>{{ mapVolumenToMensajes(t.volumen).resultado }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

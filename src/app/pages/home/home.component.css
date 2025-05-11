@@ -1,16 +1,16 @@
-/* Contenedor general */
+
 .home-container {
   background-color: #f4f4f4;
   min-height: calc(100vh - 120px);
   padding: 20px;
 }
 
-/* Título */
+
 h2 {
   margin-bottom: 20px;
 }
 
-/* Tarjetas principales */
+
 .card {
   background-color: white;
   padding: 20px;
@@ -19,7 +19,7 @@ h2 {
   margin-bottom: 25px;
 }
 
-/* Encabezados */
+
 .object-header {
   display: flex;
   justify-content: space-between;
@@ -39,14 +39,13 @@ h2 {
   border-radius: 6px;
 }
 
-/* Icono PDF */
+
 .pdf-icon {
   width: 30px;
   height: 30px;
   cursor: pointer;
 }
 
-/* Estado del Agua: línea con ícono */
 .water-status-detail {
   display: flex;
   align-items: center;
@@ -57,7 +56,6 @@ h2 {
   margin-bottom: 10px;
 }
 
-/* Tabla de tendencias */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -74,7 +72,6 @@ th, td {
   text-align: left;
 }
 
-/* Alertas visuales */
 .alert-box {
   display: flex;
   align-items: center;
