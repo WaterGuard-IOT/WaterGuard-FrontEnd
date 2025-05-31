@@ -2,58 +2,49 @@ import { Component } from '@angular/core';
 import { ToolbarComponent } from '../../components/toolbar/toolbar.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { UserService } from '../../data/services/users/user.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../shared/auth-service/auth.service';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [ToolbarComponent, CommonModule, FormsModule], 
+  imports: [ToolbarComponent, CommonModule, FormsModule],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css'
 })
 export class SignUpComponent {
-  name = '';
-  lastName = '';
-  typeUser = '';
+  username = '';
   email = '';
   password = '';
   confirmPassword = '';
 
   constructor(
-    private userService: UserService,
+    private authService: AuthService,
     private router: Router
   ) {}
 
   register() {
     if (this.password !== this.confirmPassword) {
-      alert('Passwords do not match!');
+      alert('Las contraseñas no coinciden');
       return;
     }
-  
-  
-    this.userService.getList().subscribe({
-      next: (users) => {
-        const lastId = users.length > 0 ? Math.max(...users.map(user => user.id)) : 0;
-        const newUser = {
-          id: lastId + 1, 
-          name: this.name,
-          lastName: this.lastName,
-          typeUser: this.typeUser,
-          email: this.email,
-          password: this.password
-        };
-  
-        
-        this.userService.createItem(newUser).subscribe({
-          next: () => {
-            alert('Usuario registrado correctamente');
-            this.router.navigate(['/login']);
-          },
-          error: () => alert('Error al registrar usuario')
-        });
+
+    const payload = {
+      username: this.username,
+      email: this.email,
+      password: this.password
+    };
+
+    this.authService.register(payload).subscribe({
+      next: (response) => {
+        console.log('Respuesta:', response); // Para ver qué devuelve
+        alert('Registro exitoso');
+        this.router.navigate(['/login']);
       },
-      error: () => alert('Error al obtener la lista de usuarios')
+      error: (err) => {
+        console.error('Error al registrar:', err);
+        alert('Hubo un error al registrarse');
+      }
     });
   }
 }

@@ -1,37 +1,33 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { catchError, retry, throwError, Observable } from 'rxjs';
-import { Users } from '../../models/users/user';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators'; // 👈 Importación necesaria
+import { User } from '../../models/users/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  baseUrl = "https://json-api-nj61.onrender.com/users";
-
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
+  private apiUrl = '/api/auth';
 
   constructor(private http: HttpClient) {}
 
-  handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      console.error(`An error occurred: ${error.error.message}`);
-    } else {
-      console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
-    }
-    return throwError(() => new Error('Something went wrong; please try again later.'));
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    });
   }
 
-  getList(): Observable<Users[]> {
-    return this.http.get<Users[]>(this.baseUrl).pipe(retry(2), catchError(this.handleError));
-  }
-
-  createItem(item: any): Observable<Users> {
-    return this.http.post<Users>(this.baseUrl, JSON.stringify(item), this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
+  getByUsername(username: string): Observable<User> {
+    const headers = this.getHeaders();
+    return this.http.get<User[]>(`${this.apiUrl}/users`, { headers }).pipe(
+      map(users => {
+        const user = users.find(u => u.username === username);
+        if (!user) throw new Error('Usuario no encontrado');
+        return user;
+      })
+    );
   }
 }

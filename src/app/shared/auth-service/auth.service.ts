@@ -1,45 +1,60 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Users } from '../../data/models/users/user';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly currentUserKey = 'currentUser'; 
+  private apiUrl = '/api/auth'; // Usamos proxy
+  private readonly tokenKey = 'token';
+  private readonly currentUserKey = 'currentUser';
+  private readonly userIdKey = 'userId';
 
-  constructor(private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
-  
-  setUser(user: Users): void {
-    localStorage.setItem(this.currentUserKey, JSON.stringify(user));
-    localStorage.setItem('userId', String(user.id)); // ← ESTA LÍNEA ES CLAVE
+  // 🔹 Login con almacenamiento del token y username
+  login(username: string, password: string): Observable<any> {
+  return this.http.post<any>(`${this.apiUrl}/login`, { username, password }).pipe(
+    tap(response => {
+      localStorage.setItem('token', response.token); // ✅ importante
+      localStorage.setItem('currentUser', username);
+    })
+  );
+}
+
+
+  // 🔹 Registro de nuevo usuario
+  register(payload: { username: string; email: string; password: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, payload, { responseType: 'text' });
   }
 
-  /** Obtiene el usuario desde localStorage */
-  getUser(): Users | null {
-    try {
-      const userJson = localStorage.getItem(this.currentUserKey);
-      return userJson ? JSON.parse(userJson) as Users : null;
-    } catch (error) {
-      console.error('Error al obtener el usuario de localStorage:', error);
-      return null;
-    }
-  }
-
-  
+  // 🔹 Logout
   logout(): void {
-    this.clearUser();
+    localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem(this.currentUserKey);
+    localStorage.removeItem(this.userIdKey);
     this.router.navigate(['/login']);
   }
 
- 
-  private clearUser(): void {
-    localStorage.removeItem(this.currentUserKey);
+  // 🔹 Verifica autenticación
+  isAuthenticated(): boolean {
+    return !!this.getToken();
   }
 
-  
-  isAuthenticated(): boolean {
-    return this.getUser() !== null;
+  // 🔹 Obtiene token
+  getToken(): string | null {
+    return localStorage.getItem(this.tokenKey);
+  }
+
+  // 🔹 Obtiene username
+  getUser(): string | null {
+    return localStorage.getItem(this.currentUserKey);
+  }
+
+  // 🔹 (Opcional) Obtiene userId
+  getUserId(): string | null {
+    return localStorage.getItem(this.userIdKey);
   }
 }

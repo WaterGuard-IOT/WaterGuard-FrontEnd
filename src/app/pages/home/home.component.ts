@@ -3,13 +3,8 @@ import { ToolbarComponent } from '../../components/toolbar/toolbar.component';
 import { CommonModule } from '@angular/common';
 import { PdfModalComponent } from '../../components/pdf-modal/pdf-modal.component';
 
-import { WaterStatusService } from '../../data/services/water-status/water-status.service';
-import { TrendsService } from '../../data/services/trends/trend.service';
-import { AlertService } from '../../data/services/alerts/alert.service';
-
-import { WaterStatus } from '../../data/models/water-status/water-statu';
-import { Trends } from '../../data/models/trends/trend';
-import { Alerts } from '../../data/models/alerts/alert';
+import { TankService } from '../../data/services/tank/tank.service';
+import { Tank } from '../../data/models/tank/tank.model';
 
 @Component({
   selector: 'app-home',
@@ -20,41 +15,29 @@ import { Alerts } from '../../data/models/alerts/alert';
 })
 export class HomeComponent implements OnInit {
   showModal = false;
+  tank!: Tank;
 
-  userId: number = 0;
-  waterStatus!: WaterStatus;
-  trends: Trends[] = [];
-  alerts: Alerts[] = [];
-
-  constructor(
-    private waterStatusService: WaterStatusService,
-    private trendsService: TrendsService,
-    private alertService: AlertService
-  ) {}
+  constructor(private tankService: TankService) {}
 
   ngOnInit(): void {
     const storedId = localStorage.getItem('userId');
     if (storedId) {
-      this.userId = Number(storedId);
-      this.loadData();
+      const userId = Number(storedId);
+      this.tankService.getTanksByUser(userId).subscribe({
+        next: (tanks) => {
+          if (tanks.length > 0) {
+            this.tank = tanks[0]; // Tomamos el primer tanque del usuario
+          } else {
+            console.warn('No hay tanques registrados para este usuario.');
+          }
+        },
+        error: (err) => {
+          console.error('Error al obtener tanques:', err);
+        }
+      });
     } else {
       console.warn('No userId found in localStorage.');
-      
     }
-  }
-
-  loadData(): void {
-    this.waterStatusService.getByUserId(this.userId).subscribe(data => {
-      this.waterStatus = data[0];
-    });
-
-    this.trendsService.getByUserId(this.userId).subscribe(data => {
-      this.trends = data;
-    });
-
-    this.alertService.getByUserId(this.userId).subscribe(data => {
-      this.alerts = data;
-    });
   }
 
   openModal() {
