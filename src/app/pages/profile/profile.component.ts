@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ToolbarComponent } from '../../components/toolbar/toolbar.component';
 import { AuthService } from '../../shared/auth-service/auth.service';
+import { UserService } from '../../data/services/users/user.service';
+import { User } from '../../data/models/users/user.model';
 
 @Component({
   selector: 'app-profile',
@@ -10,24 +12,30 @@ import { AuthService } from '../../shared/auth-service/auth.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  name: string | null = null;
-  lastName: string | null = null;
+  username: string | null = null;
   email: string | null = null;
-  typeUser: string | null = null;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
-    const user = this.authService.getUser(); 
-    if (user) {
-      this.name = user.name;
-      this.lastName = user.lastName;
-      this.email = user.email;
-      this.typeUser = user.typeUser;
+    const storedUsername = this.authService.getUser();
+    if (storedUsername) {
+      this.userService.getByUsername(storedUsername).subscribe({
+        next: (user: User) => {
+          this.username = user.username;
+          this.email = user.email;
+        },
+        error: (err) => {
+          console.error('Error al obtener el perfil del usuario', err);
+        }
+      });
     }
   }
 
   logout(): void {
-    this.authService.logout(); 
+    this.authService.logout();
   }
 }
