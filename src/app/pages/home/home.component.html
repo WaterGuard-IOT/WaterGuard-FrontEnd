@@ -2,7 +2,7 @@
 
 <div class="home-container">
   <div class="header-row">
-    <h2>Viewing the AWS Console - Tank water</h2>
+    <h2>Tanques registrados</h2>
     <img
       src="assets/images/pdf-icon.png"
       alt="Descargar PDF"
@@ -17,38 +17,64 @@
     (closeModal)="closeModal()"
   ></app-pdf-modal>
 
-  <!-- Estado del agua -->
-  <div class="card" *ngIf="tank?.calidad">
-    <h3>Estado del Agua</h3>
+  <div class="tank-grid">
+    <div class="card" *ngFor="let tank of tanks; let i = index">
+      <h3>Estado del Agua - Tanque {{ i + 1 }}</h3>
 
-    <div class="water-status-detail">
-      <img src="assets/images/ph-icon.png" alt="pH" width="24" />
-      <strong>pH:</strong> {{ tank.calidad.ph }}
-    </div>
+      <div class="water-status-detail">
+        <img src="assets/images/ph-icon.png" alt="pH" width="24" />
+        <strong>pH:</strong> {{ tank.calidad.ph }}
+      </div>
 
-    <div class="water-status-detail">
-      <img src="assets/images/temperature-icon.png" alt="Temperatura" width="24" />
-      <strong>Temperatura:</strong> {{ tank.calidad.temperatura }} °C
-    </div>
+      <div class="water-status-detail">
+        <img src="assets/images/temperature-icon.png" alt="Temperatura" width="24" />
+        <strong>Temperatura:</strong> {{ tank.calidad.temperatura }} °C
+      </div>
 
-    <div class="water-status-detail">
-      <img src="assets/images/volume-icon.png" alt="Conductividad" width="24" />
-      <strong>Conductividad:</strong> {{ tank.calidad.conductividad }} µS/cm
-    </div>
+      <div class="water-status-detail">
+        <img src="assets/images/volume-icon.png" alt="Conductividad" width="24" />
+        <strong>Conductividad:</strong> {{ tank.calidad.conductividad }} µS/cm
+      </div>
 
-    <div class="water-status-detail">
-      <img src="assets/images/volume-icon.png" alt="Turbidez" width="24" />
-      <strong>Turbidez:</strong> {{ tank.calidad.turbidez }} NTU
-    </div>
-  </div>
+      <div class="water-status-detail">
+        <img src="assets/images/volume-icon.png" alt="Turbidez" width="24" />
+        <strong>Turbidez:</strong> {{ tank.calidad.turbidez }} NTU
+      </div>
 
-  <!-- Nivel del agua -->
-  <div class="card" *ngIf="tank?.nivel">
-    <h3>Nivel del Agua</h3>
+      <h3>Nivel del Agua</h3>
 
-    <div class="water-status-detail">
-      <img src="assets/images/volume-icon.png" alt="Volumen" width="24" />
-      <strong>Volumen:</strong> {{ tank.nivel.porcentaje }} %
+      <div class="water-status-detail">
+        <img src="assets/images/volume-icon.png" alt="Volumen" width="24" />
+        <strong>Volumen:</strong> {{ tank.nivel.porcentaje }} %
+      </div>
+
+      <div class="progress-bar-container">
+        <div class="progress-bar" [style.width.%]="tank.nivel.porcentaje"></div>
+      </div>
+
+      <div class="water-status-detail">
+        <strong>Estado del Tanque:</strong>
+        <span class="status-badge" [ngClass]="getStatusClass(tank.nivel.porcentaje)">
+          ● {{ getStatus(tank.nivel.porcentaje) }}
+        </span>
+      </div>
+
+      <!-- <div class="water-status-detail">
+        <strong>Estado de Bomba:</strong> 🔌 Activo
+      </div> -->
+
+      <div class="water-status-detail">
+        <strong>Última act.:</strong> {{ tank.nivel.fechaMedicion | date: 'short' }}
+      </div>
+
+      <div class="water-status-detail" style="justify-content: end;">
+        <button
+          class="view-detail-button"
+          [routerLink]="['/tank-detail', tank.id]"
+        >
+          Ver detalles
+        </button>
+      </div>
     </div>
   </div>
 </div>

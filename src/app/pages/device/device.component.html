@@ -11,7 +11,7 @@
 
   <h3>Historial y Reportes</h3>
 
-  <table class="device-table">
+  <table class="device-table" *ngIf="tanks.length > 0; else noData">
     <thead>
       <tr>
         <th>Fecha</th>
@@ -21,12 +21,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let t of trends">
-        <td>{{ t.fecha }}</td>
-        <td>{{ t.volumen }}%</td>
-        <td>{{ mapVolumenToMensajes(t.volumen).accion }}</td>
-        <td>{{ mapVolumenToMensajes(t.volumen).resultado }}</td>
+      <tr *ngFor="let tank of tanks">
+        <td>{{ tank.nivel.fechaMedicion | date:'short' }}</td>
+        <td>{{ tank.nivel.porcentaje }}%</td>
+        <td>{{ mapVolumenToMensajes(tank.nivel.porcentaje).accion }}</td>
+        <td>{{ mapVolumenToMensajes(tank.nivel.porcentaje).resultado }}</td>
       </tr>
     </tbody>
   </table>
+
+  <ng-template #noData>
+    <p>No hay registros disponibles para mostrar.</p>
+  </ng-template>
 </div>

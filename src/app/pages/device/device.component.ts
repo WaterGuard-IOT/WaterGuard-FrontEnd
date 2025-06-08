@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToolbarComponent } from '../../components/toolbar/toolbar.component';
-import { WaterStatusService } from '../../data/services/water-status/water-status.service';
-import { TrendsService } from '../../data/services/trends/trend.service';
-import { WaterStatus } from '../../data/models/water-status/water-statu';
-import { Trends } from '../../data/models/trends/trend';
+import { TankService } from '../../data/services/tank/tank.service';
+import { Tank } from '../../data/models/tank/tank.model';
 
 @Component({
   selector: 'app-device',
@@ -14,28 +12,20 @@ import { Trends } from '../../data/models/trends/trend';
   styleUrls: ['./device.component.css']
 })
 export class DeviceComponent implements OnInit {
-  waterStatus!: WaterStatus;
-  trends: Trends[] = [];
+  tanks: Tank[] = [];
 
-  constructor(
-    private waterStatusService: WaterStatusService,
-    private trendsService: TrendsService
-  ) {}
+  constructor(private tankService: TankService) {}
 
   ngOnInit(): void {
     const userId = Number(localStorage.getItem('userId'));
     if (userId) {
-      this.waterStatusService.getByUserId(userId).subscribe(data => {
-        this.waterStatus = data[0];
-      });
-
-      this.trendsService.getByUserId(userId).subscribe(data => {
-        this.trends = data;
+      this.tankService.getTanksByUser(userId).subscribe(tanks => {
+        this.tanks = tanks.filter(t => t.nivel); // Asegura que tengan datos
       });
     }
   }
 
-  mapVolumenToMensajes(volumen: number): { accion: string, resultado: string } {
+  mapVolumenToMensajes(volumen: number): { accion: string; resultado: string } {
     if (volumen >= 75) {
       return {
         accion: 'Detener bomba automáticamente',

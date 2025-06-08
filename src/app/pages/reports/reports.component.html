@@ -4,7 +4,6 @@
   <div class="card">
     <h2>Resumen General</h2>
 
-    <!-- Nivel de Agua -->
     <div class="summary-card green">
       <div class="icon">
         <img src="assets/images/icon-tank.png" alt="Tanque" />
@@ -15,7 +14,6 @@
       </div>
     </div>
 
-    <!-- Calidad de Agua (usando pH) -->
     <div class="summary-card blue">
       <div class="icon">
         <img src="assets/images/icon-consume.png" alt="Consumo" />
@@ -26,7 +24,6 @@
       </div>
     </div>
 
-    <!-- Total de tanques -->
     <div class="summary-card red">
       <div class="icon">
         <img src="assets/images/icon-alert.png" alt="Fugas" />
@@ -39,16 +36,30 @@
   </div>
 
   <div class="card">
+    <h2>Alertas y Notificaciones</h2>
+    <ul class="alert-list" *ngIf="alerts.length > 0; else noAlerts">
+      <li *ngFor="let alert of alerts">
+        <span class="material-icons alert-icon">warning</span>
+        {{ alert }}
+      </li>
+    </ul>
+    <ng-template #noAlerts>
+      <div class="no-alerts">
+        <span class="material-icons">check_circle</span>
+        No hay alertas activas
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="card">
     <h2>Acciones rápidas</h2>
 
     <button class="action-btn" routerLink="/home">
-      Ver Consumo detallado
-      <span class="arrow">➔</span>
+      Ver Consumo detallado <span class="arrow">➔</span>
     </button>
 
     <button class="action-btn" routerLink="/device">
-      Ver dispositivo
-      <span class="arrow">➔</span>
+      Ver dispositivo <span class="arrow">➔</span>
     </button>
   </div>
 </div>

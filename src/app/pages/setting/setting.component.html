@@ -1,68 +1,71 @@
 <app-toolbar></app-toolbar>
 
 <div class="settings-container">
-  <h2>Configuración</h2>
+  <h2>Configuraciones del Sistema</h2>
 
-  <mat-accordion multi>
+  <!-- Configuración de pH -->
+  <section class="setting-section">
+    <h3>Configuración de pH</h3>
+    <div class="info-box">
+      <span class="material-icons info-icon">info</span>
+      <p>El pH mide la acidez del agua. Un pH neutro (7.0) es ideal para muchos usos.</p>
+      <small>Valores típicamente aceptables: 6.5 - 8.5</small>
+    </div>
+    <div class="input-group">
+      <label>pH mínimo</label>
+      <input type="number" [(ngModel)]="phMin" />
+      <label>pH máximo</label>
+      <input type="number" [(ngModel)]="phMax" />
+    </div>
+    <button (click)="updatePhThresholds()">Actualizar Umbrales de pH</button>
+  </section>
 
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>Configuración de sensores</mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="panel-links">
-        <a routerLink="/device">Calibración de sensores (pH, temp, vol)</a>
-      </div>
-    </mat-expansion-panel>
+  <!-- Configuración de Temperatura -->
+  <section class="setting-section">
+    <h3>Configuración de Temperatura</h3>
+    <div class="info-box">
+      <span class="material-icons info-icon">info</span>
+      <p>La temperatura del agua afecta su calidad. Temperaturas extremas pueden afectar la eficiencia de sistemas y tuberías.</p>
+      <small>Valores típicamente aceptables: 15°C - 25°C</small>
+    </div>
+    <div class="input-group">
+      <label>Temperatura mínima</label>
+      <input type="number" [(ngModel)]="tempMin" />
+      <label>Temperatura máxima</label>
+      <input type="number" [(ngModel)]="tempMax" />
+    </div>
+    <button (click)="updateTempThresholds()">Actualizar Umbrales de Temperatura</button>
+  </section>
 
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>Parámetros de alertas</mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="panel-links">
-        <a routerLink="/home">Umbrales personalizados</a>
-      </div>
-    </mat-expansion-panel>
+  <!-- Configuración de Niveles -->
+  <section class="setting-section">
+    <h3>Configuración de Niveles de Agua</h3>
+    <div class="info-box">
+      <span class="material-icons info-icon">info</span>
+      <p>Establezca umbrales para determinar cuándo un tanque necesita ser llenado o cuándo está en nivel óptimo.</p>
+      <small>Los valores son porcentajes respecto a la capacidad total del tanque.</small>
+    </div>
+    <div class="input-group">
+      <label>Nivel crítico (%)</label>
+      <input type="number" [(ngModel)]="nivelCritico" />
+      <label>Nivel óptimo (%)</label>
+      <input type="number" [(ngModel)]="nivelOptimo" />
+    </div>
+    <button (click)="updateNivelThresholds()">Actualizar Umbrales de Nivel</button>
+  </section>
 
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>Notificaciones</mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="panel-links">
-        <a routerLink="/home">Programación de informes</a>
-      </div>
-    </mat-expansion-panel>
+  <!-- Restaurar por defecto -->
+  <section class="setting-section">
+    <button class="reset-btn" (click)="resetDefaults()">
+      <span class="material-icons">restart_alt</span>
+      Restaurar Valores por Defecto
+    </button>
+  </section>
+</div>
 
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>Perfil y seguridad</mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="panel-links">
-        <a routerLink="/profile">Gestión de usuario</a>
-        <a routerLink="/profile">Cambiar contraseña</a>
-      </div>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>Sistema</mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="panel-links">
-        <a routerLink="/device">Información del dispositivo/servidor</a>
-      </div>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>Integración</mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="panel-links">
-        <a routerLink="/reports">Exportación automática</a>
-      </div>
-    </mat-expansion-panel>
-
-  </mat-accordion>
-
+<div class="logout-wrapper">
   <button class="logout-icon" (click)="logout()">
     <img src="assets/images/icon-logout.png" alt="Cerrar sesión" />
+    Cerrar sesión
   </button>
 </div>

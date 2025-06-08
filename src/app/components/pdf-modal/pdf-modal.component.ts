@@ -17,7 +17,7 @@ export class PdfModalComponent {
   }
 
   download() {
-    const element = document.querySelector('.card') as HTMLElement;
+    const element = document.querySelector('.home-container') as HTMLElement;
     const now = new Date();
     const dateStr = now.toISOString().split('T')[0]; // yyyy-mm-dd
     const fileName = `Reporte_${dateStr}.pdf`;

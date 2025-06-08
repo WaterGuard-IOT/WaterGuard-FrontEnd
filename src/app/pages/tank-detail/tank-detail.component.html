@@ -1,0 +1,72 @@
+<app-toolbar></app-toolbar>
+
+<div class="tank-detail-container" *ngIf="tank">
+  <h2>Tanque Comunal Principal</h2>
+  <p class="sub-info">Ubicación: Plaza Central, Comunidad San Pedro</p>
+  <p class="sub-info">
+    Última actualización: {{ tank.nivel.fechaMedicion | date: 'dd/MM/yyyy HH:mm' }}
+  </p>
+
+  <!-- Nivel de agua -->
+  <h3 class="section-title">Nivel de Agua</h3>
+  <div class="water-visual">
+    <div class="water-tank">
+      <div class="water-fill" [style.height.%]="tank.nivel.porcentaje">
+        {{ tank.nivel.porcentaje }}%
+      </div>
+    </div>
+  </div>
+
+  <!-- Botón de control de bomba -->
+<div class="pump-control">
+  <button class="pump-button" [ngClass]="{ on: bombaActiva }" (click)="togglePump()">
+    <span class="material-icons pump-icon">
+      {{ bombaActiva ? 'power_settings_new' : 'power_settings_new' }}
+    </span>
+    {{ bombaActiva ? 'Desactivar Bomba' : 'Activar Bomba' }}
+  </button>
+  <div class="pump-message" *ngIf="mensajeBomba">
+    <span class="material-icons status-icon">
+      {{ bombaActiva ? 'check_circle' : 'highlight_off' }}
+    </span>
+    {{ mensajeBomba }}
+  </div>
+</div>
+
+
+  <!-- Calidad de agua -->
+  <h3 class="section-title">Calidad del Agua</h3>
+  <div class="quality-grid">
+    <div class="quality-box">
+      <strong>pH</strong>
+      <div class="value">{{ tank.calidad.ph }}</div>
+      <small>Rango ideal: 6.5 - 8.5</small>
+    </div>
+    <div class="quality-box">
+      <strong>Temperatura</strong>
+      <div class="value">{{ tank.calidad.temperatura }} °C</div>
+      <small>Rango ideal: 15°C - 25°C</small>
+    </div>
+    <div class="quality-box">
+      <strong>Conductividad</strong>
+      <div class="value">{{ tank.calidad.conductividad }} µS/cm</div>
+    </div>
+    <div class="quality-box">
+      <strong>Turbidez</strong>
+      <div class="value">{{ tank.calidad.turbidez }} NTU</div>
+    </div>
+  </div>
+
+  <!-- Histórico con gráfico -->
+  <h3 class="section-title">Niveles Históricos</h3>
+  <canvas
+    baseChart
+    [data]="{
+      labels: chartLabels,
+      datasets: chartData
+    }"
+    [options]="chartOptions"
+    [type]="'line'"
+    class="history-graph"
+  ></canvas>
+</div>

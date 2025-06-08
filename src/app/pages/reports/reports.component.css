@@ -73,3 +73,72 @@ h2 {
   font-size: 1.2rem;
   font-weight: bold;
 }
+
+/* Alertas */
+.alert-box {
+  background-color: #fff3cd;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  border-left: 5px solid #ff9800;
+}
+
+.alert-box.blue {
+  background-color: #e3f2fd;
+  border-left: 5px solid #2196f3;
+}
+
+.alert-box.orange {
+  background-color: #fff3e0;
+  border-left: 5px solid #fb8c00;
+}
+
+.alert-box strong {
+  display: block;
+  font-weight: bold;
+}
+
+.alert-box small {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.8rem;
+  color: #555;
+}
+
+
+.alert-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 0.5rem;
+}
+
+.alert-list li {
+  background-color: #fff3cd;
+  border-left: 5px solid #ffc107;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+}
+
+.alert-icon {
+  color: #ff9800;
+  margin-right: 0.5rem;
+}
+
+.no-alerts {
+  background-color: #e0f2f1;
+  color: #2e7d32;
+  padding: 1rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.no-alerts .material-icons {
+  margin-right: 0.5rem;
+}
+

@@ -5,17 +5,18 @@ import { PdfModalComponent } from '../../components/pdf-modal/pdf-modal.componen
 
 import { TankService } from '../../data/services/tank/tank.service';
 import { Tank } from '../../data/models/tank/tank.model';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ToolbarComponent, CommonModule, PdfModalComponent],
+  imports: [ToolbarComponent, CommonModule, PdfModalComponent, RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
+  tanks: Tank[] = [];
   showModal = false;
-  tank!: Tank;
 
   constructor(private tankService: TankService) {}
 
@@ -25,18 +26,12 @@ export class HomeComponent implements OnInit {
       const userId = Number(storedId);
       this.tankService.getTanksByUser(userId).subscribe({
         next: (tanks) => {
-          if (tanks.length > 0) {
-            this.tank = tanks[0]; // Tomamos el primer tanque del usuario
-          } else {
-            console.warn('No hay tanques registrados para este usuario.');
-          }
+          this.tanks = tanks;
         },
         error: (err) => {
           console.error('Error al obtener tanques:', err);
         }
       });
-    } else {
-      console.warn('No userId found in localStorage.');
     }
   }
 
@@ -52,4 +47,17 @@ export class HomeComponent implements OnInit {
     this.showModal = false;
     console.log('Generando el PDF...');
   }
+
+  getStatus(porcentaje: number): string {
+  if (porcentaje < 30) return 'Crítico';
+  if (porcentaje < 60) return 'Atención';
+  return 'Normal';
+}
+
+getStatusClass(porcentaje: number): string {
+  if (porcentaje < 30) return 'critico';
+  if (porcentaje < 60) return 'atencion';
+  return 'normal';
+}
+
 }
