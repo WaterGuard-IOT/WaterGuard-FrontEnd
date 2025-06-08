@@ -18,9 +18,18 @@ export class ReportsComponent implements OnInit {
   totalTanks: number = 0;
   alerts: string[] = [];
 
+  // Umbrales configurables
+  phMin: number = 6.5;
+  phMax: number = 8.5;
+  tempMin: number = 15;
+  tempMax: number = 25;
+  nivelCritico: number = 25;
+
   constructor(private tankService: TankService) {}
 
   ngOnInit(): void {
+    this.loadThresholds();
+
     const userId = localStorage.getItem('userId');
     if (!userId) return;
 
@@ -32,7 +41,12 @@ export class ReportsComponent implements OnInit {
           const lastTank = tanks[0];
           this.waterLevel = lastTank.nivel?.porcentaje ?? 0;
           this.waterStatus = `pH: ${lastTank.calidad?.ph ?? 'N/A'}`;
-          this.generateAlerts(lastTank);
+
+          // Recorremos todos los tanques para detectar alertas
+          this.alerts = [];
+          tanks.forEach((tank) => {
+            this.generateAlerts(tank);
+          });
         }
       },
       error: (err) => {
@@ -41,23 +55,29 @@ export class ReportsComponent implements OnInit {
     });
   }
 
+  private loadThresholds(): void {
+    this.phMin = Number(localStorage.getItem('phMin') ?? 6.5);
+    this.phMax = Number(localStorage.getItem('phMax') ?? 8.5);
+    this.tempMin = Number(localStorage.getItem('tempMin') ?? 15);
+    this.tempMax = Number(localStorage.getItem('tempMax') ?? 25);
+    this.nivelCritico = Number(localStorage.getItem('nivelCritico') ?? 25);
+  }
+
   private generateAlerts(tank: Tank): void {
-    this.alerts = [];
-
-    if (tank.nivel?.porcentaje < 25) {
-      this.alerts.push('Nivel de agua crítico: menos del 25%');
+    if (tank.nivel?.porcentaje < this.nivelCritico) {
+      this.alerts.push(`Tanque #${tank.id}: Nivel crítico (< ${this.nivelCritico}%)`);
     }
 
-    if (tank.calidad?.ph < 6.5 || tank.calidad?.ph > 8.5) {
-      this.alerts.push(`pH fuera de rango ideal (actual: ${tank.calidad.ph})`);
+    if (tank.calidad?.ph < this.phMin || tank.calidad?.ph > this.phMax) {
+      this.alerts.push(`Tanque #${tank.id}: pH fuera de rango (${this.phMin} - ${this.phMax}), actual: ${tank.calidad.ph}`);
     }
 
-    if (tank.calidad?.temperatura < 15 || tank.calidad?.temperatura > 25) {
-      this.alerts.push(`Temperatura fuera de rango (actual: ${tank.calidad.temperatura}°C)`);
+    if (tank.calidad?.temperatura < this.tempMin || tank.calidad?.temperatura > this.tempMax) {
+      this.alerts.push(`Tanque #${tank.id}: Temperatura fuera de rango (${this.tempMin}°C - ${this.tempMax}°C), actual: ${tank.calidad.temperatura}°C`);
     }
 
     if (tank.calidad?.turbidez > 5) {
-      this.alerts.push(`Alta turbidez detectada (actual: ${tank.calidad.turbidez} NTU)`);
+      this.alerts.push(`Tanque #${tank.id}: Alta turbidez detectada (${tank.calidad.turbidez} NTU)`);
     }
   }
 }

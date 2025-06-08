@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { ToolbarComponent } from '../../components/toolbar/toolbar.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../shared/auth-service/auth.service';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [ToolbarComponent, CommonModule, FormsModule],
+  imports: [ToolbarComponent, CommonModule, FormsModule, RouterModule],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css'
 })

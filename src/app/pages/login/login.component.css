@@ -1,19 +1,37 @@
+/* CENTRAR VERTICALMENTE */
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 64px); /* Descuenta altura del toolbar si aplica */
+  padding: 1rem;
+  box-sizing: border-box;
+  background-color: #f5f5f5;
+}
+
+/* LOGIN CONTAINER */
 .login-container {
   background-color: #87b9f9;
-  width: 90%; 
-  max-width: 400px; 
+  width: 100%;
+  max-width: 400px;
   padding: 40px;
   border-radius: 20px;
-  margin: 50px auto; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
 
+/* TITULO */
 h1 {
   margin-bottom: 30px;
   color: #000;
 }
 
+/* FORMULARIO */
 form {
   display: flex;
   flex-direction: column;
@@ -34,14 +52,10 @@ input {
   font-size: 16px;
 }
 
+/* ENLACES */
 .links {
   margin-top: 10px;
   font-size: 14px;
-}
-
-.forgot {
-  color: blue;
-  text-decoration: none;
 }
 
 .signup-link {
@@ -50,6 +64,7 @@ input {
   text-decoration: none;
 }
 
+/* BOTÓN */
 .signup-button {
   margin-top: 20px;
   background-color: #58c26d;
@@ -61,28 +76,30 @@ input {
   cursor: pointer;
 }
 
+.signup-button:hover {
+  background-color: #4caf50;
+  color: white;
+}
 
+/* RESPONSIVE */
 @media (max-width: 768px) {
   .login-container {
-    width: 95%; 
     padding: 30px;
-    margin: 20px auto;
   }
 
   h1 {
-    font-size: 24px; 
+    font-size: 24px;
   }
 
   input {
-    font-size: 14px; 
+    font-size: 14px;
   }
 
   .signup-button {
-    font-size: 14px; 
+    font-size: 14px;
     padding: 10px;
   }
 }
-
 
 @media (max-width: 480px) {
   .login-container {
@@ -90,15 +107,15 @@ input {
   }
 
   h1 {
-    font-size: 20px; 
+    font-size: 20px;
   }
 
   input {
-    font-size: 12px; 
+    font-size: 12px;
   }
 
   .signup-button {
-    font-size: 12px; 
+    font-size: 12px;
     padding: 8px;
   }
 }

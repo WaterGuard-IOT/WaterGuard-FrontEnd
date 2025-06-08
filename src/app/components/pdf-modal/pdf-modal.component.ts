@@ -17,11 +17,14 @@ export class PdfModalComponent {
   }
 
   download() {
-    const element = document.querySelector('.home-container') as HTMLElement;
+  this.closeModal.emit(); // Cerrar la modal inmediatamente
+
+  setTimeout(() => {
+    const element = document.querySelector('.tank-detail-container') as HTMLElement;
     const now = new Date();
     const dateStr = now.toISOString().split('T')[0]; // yyyy-mm-dd
     const fileName = `Reporte_${dateStr}.pdf`;
-  
+
     html2canvas(element).then(canvas => {
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF();
@@ -31,8 +34,8 @@ export class PdfModalComponent {
       pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
       pdf.save(fileName);
     });
-  
-    this.closeModal.emit();
-  }
+  }, 300); // Espera 300ms para que la modal desaparezca visualmente
+}
+
   
 }

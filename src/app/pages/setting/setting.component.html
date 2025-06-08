@@ -3,69 +3,73 @@
 <div class="settings-container">
   <h2>Configuraciones del Sistema</h2>
 
-  <!-- Configuración de pH -->
-  <section class="setting-section">
-    <h3>Configuración de pH</h3>
-    <div class="info-box">
-      <span class="material-icons info-icon">info</span>
-      <p>El pH mide la acidez del agua. Un pH neutro (7.0) es ideal para muchos usos.</p>
+  <div class="settings-grid">
+    <!-- Configuración de pH -->
+    <section class="setting-section">
+      <h3>Configuración de pH</h3>
+      <div class="info-box">
+        <span class="material-icons info-icon">info</span>
+        <p>El pH mide la acidez del agua. Un pH neutro (7.0) es ideal para muchos usos.</p>
+      </div>
       <small>Valores típicamente aceptables: 6.5 - 8.5</small>
-    </div>
-    <div class="input-group">
-      <label>pH mínimo</label>
-      <input type="number" [(ngModel)]="phMin" />
-      <label>pH máximo</label>
-      <input type="number" [(ngModel)]="phMax" />
-    </div>
-    <button (click)="updatePhThresholds()">Actualizar Umbrales de pH</button>
-  </section>
+      <div class="input-group">
+        <label>pH mínimo</label>
+        <input type="number" [(ngModel)]="phMin" />
+        <label>pH máximo</label>
+        <input type="number" [(ngModel)]="phMax" />
+      </div>
+      <button (click)="updatePhThresholds()">Actualizar Umbrales de pH</button>
+    </section>
 
-  <!-- Configuración de Temperatura -->
-  <section class="setting-section">
-    <h3>Configuración de Temperatura</h3>
-    <div class="info-box">
-      <span class="material-icons info-icon">info</span>
-      <p>La temperatura del agua afecta su calidad. Temperaturas extremas pueden afectar la eficiencia de sistemas y tuberías.</p>
+    <!-- Configuración de Temperatura -->
+    <section class="setting-section">
+      <h3>Configuración de Temperatura</h3>
+      <div class="info-box">
+        <span class="material-icons info-icon">info</span>
+        <p>La temperatura del agua afecta su calidad. Temperaturas extremas pueden afectar la eficiencia de sistemas y tuberías.</p>
+      </div>
       <small>Valores típicamente aceptables: 15°C - 25°C</small>
-    </div>
-    <div class="input-group">
-      <label>Temperatura mínima</label>
-      <input type="number" [(ngModel)]="tempMin" />
-      <label>Temperatura máxima</label>
-      <input type="number" [(ngModel)]="tempMax" />
-    </div>
-    <button (click)="updateTempThresholds()">Actualizar Umbrales de Temperatura</button>
-  </section>
+      <div class="input-group">
+        <label>Temperatura mínima</label>
+        <input type="number" [(ngModel)]="tempMin" />
+        <label>Temperatura máxima</label>
+        <input type="number" [(ngModel)]="tempMax" />
+      </div>
+      <button (click)="updateTempThresholds()">Actualizar Umbrales de Temperatura</button>
+    </section>
 
-  <!-- Configuración de Niveles -->
-  <section class="setting-section">
-    <h3>Configuración de Niveles de Agua</h3>
-    <div class="info-box">
-      <span class="material-icons info-icon">info</span>
-      <p>Establezca umbrales para determinar cuándo un tanque necesita ser llenado o cuándo está en nivel óptimo.</p>
+    <!-- Configuración de Niveles -->
+    <section class="setting-section">
+      <h3>Configuración de Niveles de Agua</h3>
+      <div class="info-box">
+        <span class="material-icons info-icon">info</span>
+        <p>Establezca umbrales para determinar cuándo un tanque necesita ser llenado o cuándo está en nivel óptimo.</p>
+      </div>
       <small>Los valores son porcentajes respecto a la capacidad total del tanque.</small>
-    </div>
-    <div class="input-group">
-      <label>Nivel crítico (%)</label>
-      <input type="number" [(ngModel)]="nivelCritico" />
-      <label>Nivel óptimo (%)</label>
-      <input type="number" [(ngModel)]="nivelOptimo" />
-    </div>
-    <button (click)="updateNivelThresholds()">Actualizar Umbrales de Nivel</button>
-  </section>
+      <div class="input-group">
+        <label>Nivel crítico (%)</label>
+        <input type="number" [(ngModel)]="nivelCritico" />
+        <label>Nivel óptimo (%)</label>
+        <input type="number" [(ngModel)]="nivelOptimo" />
+      </div>
+      <button (click)="updateNivelThresholds()">Actualizar Umbrales de Nivel</button>
+    </section>
+  </div>
 
-  <!-- Restaurar por defecto -->
-  <section class="setting-section">
-    <button class="reset-btn" (click)="resetDefaults()">
-      <span class="material-icons">restart_alt</span>
-      Restaurar Valores por Defecto
-    </button>
-  </section>
-</div>
+<!-- Restaurar por defecto -->
+<section class="setting-section full-width center-section">
+  <button class="reset-btn" (click)="resetDefaults()">
+    <span class="material-icons">restart_alt</span>
+    Restaurar Valores por Defecto
+  </button>
+</section>
 
-<div class="logout-wrapper">
+<!-- Botón de cerrar sesión -->
+<div class="logout-centered">
   <button class="logout-icon" (click)="logout()">
-    <img src="assets/images/icon-logout.png" alt="Cerrar sesión" />
+    <span class="material-icons">logout</span>
     Cerrar sesión
   </button>
 </div>
+
+

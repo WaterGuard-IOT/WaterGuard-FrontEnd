@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../shared/auth-service/auth.service';
 import { ToolbarComponent } from '../../components/toolbar/toolbar.component';
@@ -8,7 +8,7 @@ import { UserService } from '../../data/services/users/user.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ToolbarComponent, FormsModule],
+  imports: [ToolbarComponent, FormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })

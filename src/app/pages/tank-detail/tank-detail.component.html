@@ -69,4 +69,14 @@
     [type]="'line'"
     class="history-graph"
   ></canvas>
+
+  <div class="download-button-wrapper">
+  <button class="download-btn" (click)="showPdfModal = true">
+    <span class="material-icons">download</span>
+    Descargar PDF
+  </button>
+</div>
+
+<app-pdf-modal *ngIf="showPdfModal" (closeModal)="showPdfModal = false" />
+
 </div>

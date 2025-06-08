@@ -7,11 +7,12 @@ import { ToolbarComponent } from '../../components/toolbar/toolbar.component';
 
 import { NgChartsModule } from 'ng2-charts';
 import { ChartConfiguration } from 'chart.js';
+import { PdfModalComponent } from '../../components/pdf-modal/pdf-modal.component';
 
 @Component({
   selector: 'app-tank-detail',
   standalone: true,
-  imports: [CommonModule, ToolbarComponent, NgChartsModule],
+  imports: [CommonModule, ToolbarComponent, NgChartsModule, PdfModalComponent],
   templateUrl: './tank-detail.component.html',
   styleUrl: './tank-detail.component.css'
 })
@@ -20,6 +21,8 @@ export class TankDetailComponent implements OnInit {
   isLoading = true;
   bombaActiva = false;
   mensajeBomba = '';
+  showPdfModal = false;
+
 
 
   chartLabels: string[] = [];

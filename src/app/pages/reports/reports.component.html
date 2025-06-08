@@ -1,6 +1,7 @@
 <app-toolbar></app-toolbar>
 
 <div class="reports-container">
+  <!-- Resumen General -->
   <div class="card">
     <h2>Resumen General</h2>
 
@@ -35,6 +36,7 @@
     </div>
   </div>
 
+  <!-- Alertas y Notificaciones -->
   <div class="card">
     <h2>Alertas y Notificaciones</h2>
     <ul class="alert-list" *ngIf="alerts.length > 0; else noAlerts">
@@ -51,6 +53,7 @@
     </ng-template>
   </div>
 
+  <!-- Acciones rápidas -->
   <div class="card">
     <h2>Acciones rápidas</h2>
 
