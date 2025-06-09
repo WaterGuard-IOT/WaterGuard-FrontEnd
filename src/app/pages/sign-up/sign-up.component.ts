@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../shared/auth-service/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-sign-up',
@@ -20,12 +21,13 @@ export class SignUpComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   register() {
     if (this.password !== this.confirmPassword) {
-      alert('Las contraseñas no coinciden');
+      this.snackBar.open('Las contraseñas no coinciden', 'Cerrar', { duration: 3000 });
       return;
     }
 
@@ -36,14 +38,12 @@ export class SignUpComponent {
     };
 
     this.authService.register(payload).subscribe({
-      next: (response) => {
-        console.log('Respuesta:', response); // Para ver qué devuelve
-        alert('Registro exitoso');
+      next: () => {
+        this.snackBar.open('Registro exitoso', 'Cerrar', { duration: 3000 });
         this.router.navigate(['/login']);
       },
-      error: (err) => {
-        console.error('Error al registrar:', err);
-        alert('Hubo un error al registrarse');
+      error: () => {
+        this.snackBar.open('Hubo un error al registrarse', 'Cerrar', { duration: 3000 });
       }
     });
   }

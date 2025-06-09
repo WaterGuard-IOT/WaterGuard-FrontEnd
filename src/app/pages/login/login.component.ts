@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../shared/auth-service/auth.service';
 import { ToolbarComponent } from '../../components/toolbar/toolbar.component';
 import { UserService } from '../../data/services/users/user.service';
@@ -19,7 +20,8 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private snackBar: MatSnackBar
   ) {}
 
   login() {
@@ -28,18 +30,16 @@ export class LoginComponent {
         this.userService.getByUsername(this.username).subscribe({
           next: (user) => {
             localStorage.setItem('userId', String(user.id));
-            alert('Inicio de sesión exitoso');
+            this.snackBar.open('Inicio de sesión exitoso', 'Cerrar', { duration: 3000 });
             this.router.navigate(['/home']);
           },
-          error: (err) => {
-            console.error('Error al obtener usuario:', err);
-            alert('No se pudo obtener el usuario');
+          error: () => {
+            this.snackBar.open('No se pudo obtener el usuario', 'Cerrar', { duration: 3000 });
           }
         });
       },
-      error: (err) => {
-        console.error('Error al iniciar sesión:', err);
-        alert('Usuario o contraseña incorrectos');
+      error: () => {
+        this.snackBar.open('Usuario o contraseña incorrectos', 'Cerrar', { duration: 3000 });
       }
     });
   }
