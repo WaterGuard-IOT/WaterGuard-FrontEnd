@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators'; // 👈 Importación necesaria
+import { map } from 'rxjs/operators';
 import { User } from '../../models/users/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = '/api/auth';
+  private apiUrl = 'http://172.178.70.242:8080/api/auth'; // ✅ antes era: '/api/auth'
 
   constructor(private http: HttpClient) {}
 

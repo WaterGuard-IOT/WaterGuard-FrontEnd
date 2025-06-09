@@ -7,30 +7,30 @@ import { Observable, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = '/api/auth'; // Usamos proxy
+  private apiUrl = 'http://172.178.70.242:8080/api/auth';
   private readonly tokenKey = 'token';
   private readonly currentUserKey = 'currentUser';
   private readonly userIdKey = 'userId';
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  // 🔹 Login con almacenamiento del token y username
+  
   login(username: string, password: string): Observable<any> {
   return this.http.post<any>(`${this.apiUrl}/login`, { username, password }).pipe(
     tap(response => {
-      localStorage.setItem('token', response.token); // ✅ importante
+      localStorage.setItem('token', response.token); 
       localStorage.setItem('currentUser', username);
     })
   );
 }
 
 
-  // 🔹 Registro de nuevo usuario
+  
   register(payload: { username: string; email: string; password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, payload, { responseType: 'text' });
   }
 
-  // 🔹 Logout
+  
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.currentUserKey);
@@ -38,22 +38,22 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  // 🔹 Verifica autenticación
+  
   isAuthenticated(): boolean {
     return !!this.getToken();
   }
 
-  // 🔹 Obtiene token
+  
   getToken(): string | null {
     return localStorage.getItem(this.tokenKey);
   }
 
-  // 🔹 Obtiene username
+  
   getUser(): string | null {
     return localStorage.getItem(this.currentUserKey);
   }
 
-  // 🔹 (Opcional) Obtiene userId
+  
   getUserId(): string | null {
     return localStorage.getItem(this.userIdKey);
   }

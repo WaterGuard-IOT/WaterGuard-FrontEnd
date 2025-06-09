@@ -7,7 +7,7 @@ import { Tank } from '../../models/tank/tank.model';
   providedIn: 'root',
 })
 export class TankService {
-  private apiUrl = '/api'; // Usamos proxy.conf.json → no repitas localhost:8080
+  private apiUrl = 'http://172.178.70.242:8080/api'; // ✅ antes era: '/api'
 
   constructor(private http: HttpClient) {}
 

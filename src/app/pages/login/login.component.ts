@@ -25,7 +25,6 @@ export class LoginComponent {
   login() {
     this.authService.login(this.username, this.password).subscribe({
       next: () => {
-        // 🔹 Pedimos userId por username
         this.userService.getByUsername(this.username).subscribe({
           next: (user) => {
             localStorage.setItem('userId', String(user.id));
