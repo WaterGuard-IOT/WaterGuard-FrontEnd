@@ -24,6 +24,7 @@ export class ReportsComponent implements OnInit {
   tempMin: number = 15;
   tempMax: number = 25;
   nivelCritico: number = 25;
+  nivelOptimo: number = 80;
 
   constructor(private tankService: TankService) {}
 
@@ -61,6 +62,7 @@ export class ReportsComponent implements OnInit {
     this.tempMin = Number(localStorage.getItem('tempMin') ?? 15);
     this.tempMax = Number(localStorage.getItem('tempMax') ?? 25);
     this.nivelCritico = Number(localStorage.getItem('nivelCritico') ?? 25);
+    this.nivelOptimo = Number(localStorage.getItem('nivelOptimo') ?? 80);
   }
 
   private generateAlerts(tank: Tank): void {
@@ -79,5 +81,10 @@ export class ReportsComponent implements OnInit {
     if (tank.calidad?.turbidez > 5) {
       this.alerts.push(`Tanque #${tank.id}: Alta turbidez detectada (${tank.calidad.turbidez} NTU)`);
     }
+
+    if (tank.nivel?.porcentaje > this.nivelOptimo) {
+      this.alerts.push(`Tanque #${tank.id}: Nivel superior al óptimo (> ${this.nivelOptimo}%)`);
+    }
+
   }
 }
