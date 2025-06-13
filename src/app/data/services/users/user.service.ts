@@ -8,7 +8,7 @@ import { User } from '../../models/users/user.model';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://172.178.70.242:8080/api/auth'; // ✅ antes era: '/api/auth'
+  private apiUrl = 'https://172.178.70.242/api/auth'; //  antes era: '/api/auth'
 
   constructor(private http: HttpClient) {}
 

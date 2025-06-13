@@ -7,7 +7,7 @@ import { Tank } from '../../models/tank/tank.model';
   providedIn: 'root',
 })
 export class TankService {
-  private apiUrl = 'http://172.178.70.242:8080/api'; // ✅ antes era: '/api'
+  private apiUrl = 'https://172.178.70.242/api'; 
 
   constructor(private http: HttpClient) {}
 
