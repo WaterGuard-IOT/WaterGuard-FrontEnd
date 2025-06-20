@@ -180,3 +180,68 @@ h2 {
   }
 }
 
+
+.alert-list li.critical {
+  background-color: #fbeaea;
+  border-left-color: #d32f2f;
+}
+
+.alert-list li.moderate {
+  background-color: #fff8e1;
+  border-left-color: #fbc02d;
+}
+
+.alert-list li.high {
+  background-color: #e1f5fe;
+  border-left-color: #0288d1;
+}
+
+.alert-content {
+  flex: 1;
+}
+
+.alert-content .timestamp {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* Contenedor de acciones en cada alerta */
+.alert-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+/* Botón de resolver */
+.resolve-btn {
+  background-color: #dff0d8;
+  color: #3c763d;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.resolve-btn:hover {
+  background-color: #c8e5bc;
+}
+
+/* Botón de eliminar */
+.delete-btn {
+  background-color: #f2dede;
+  color: #a94442;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+  background-color: #e5c0c0;
+}
+

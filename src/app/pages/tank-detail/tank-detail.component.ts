@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { TankService } from '../../data/services/tank/tank.service';
 import { Tank } from '../../data/models/tank/tank.model';
 import { ToolbarComponent } from '../../components/toolbar/toolbar.component';
-
 import { NgChartsModule } from 'ng2-charts';
 import { ChartConfiguration } from 'chart.js';
 import { PdfModalComponent } from '../../components/pdf-modal/pdf-modal.component';
@@ -22,8 +21,6 @@ export class TankDetailComponent implements OnInit {
   bombaActiva = false;
   mensajeBomba = '';
   showPdfModal = false;
-
-
 
   chartLabels: string[] = [];
   chartData: ChartConfiguration<'line'>['data']['datasets'] = [];
@@ -55,7 +52,9 @@ export class TankDetailComponent implements OnInit {
         next: (data) => {
           this.tank = data;
           this.isLoading = false;
-          this.setupChart(data.nivel.porcentaje);
+
+          const porcentaje = this.getPorcentaje(data);
+          this.setupChart(porcentaje);
         },
         error: (err) => {
           console.error('Error al obtener tanque:', err);
@@ -65,6 +64,13 @@ export class TankDetailComponent implements OnInit {
     } else {
       this.isLoading = false;
     }
+  }
+
+  getPorcentaje(tank: Tank): number {
+    if (tank.capacity && tank.currentLevel !== undefined) {
+      return Math.round((tank.currentLevel / tank.capacity) * 100);
+    }
+    return 0;
   }
 
   getStatus(porcentaje: number): string {
@@ -104,13 +110,13 @@ export class TankDetailComponent implements OnInit {
   }
 
   togglePump(): void {
-  this.bombaActiva = !this.bombaActiva;
-  this.mensajeBomba = this.bombaActiva
-    ? 'La bomba se ha activado correctamente.'
-    : 'La bomba se ha desactivado correctamente.';
+    this.bombaActiva = !this.bombaActiva;
+    this.mensajeBomba = this.bombaActiva
+      ? 'La bomba se ha activado correctamente.'
+      : 'La bomba se ha desactivado correctamente.';
 
-  setTimeout(() => {
-    this.mensajeBomba = '';
-  }, 3000);
-}
+    setTimeout(() => {
+      this.mensajeBomba = '';
+    }, 3000);
+  }
 }

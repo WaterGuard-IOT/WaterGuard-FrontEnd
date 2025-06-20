@@ -39,12 +39,33 @@
   <!-- Alertas y Notificaciones -->
   <div class="card">
     <h2>Alertas y Notificaciones</h2>
+
     <ul class="alert-list" *ngIf="alerts.length > 0; else noAlerts">
-      <li *ngFor="let alert of alerts">
-        <span class="material-icons alert-icon">warning</span>
-        {{ alert }}
+      <li *ngFor="let alert of alerts" [ngClass]="{
+        'critical': alert.severity === 'CRITICO',
+        'moderate': alert.severity === 'MODERADO',
+        'high': alert.severity === 'ALTO'
+      }">
+        <span class="material-icons alert-icon">
+          {{
+            alert.type === 'Nivel de Agua' ? 'water_drop' :
+            alert.type === 'Temperatura' ? 'thermostat' :
+            alert.type === 'Turbidez' ? 'opacity' :
+            alert.type === 'pH' ? 'science' :
+            'warning'
+          }}
+        </span>
+        <div class="alert-content">
+          <strong>[{{ alert.severity }}]</strong> {{ alert.message }}
+          <div class="timestamp">{{ alert.timestamp | date:'short' }}</div>
+        </div>
+        <div class="alert-actions">
+          <button (click)="markAsResolved(alert)" class="resolve-btn">✅ Resolver</button>
+          <button (click)="deleteAlert(alert)" class="delete-btn">❌ Eliminar</button>
+        </div>
       </li>
     </ul>
+
     <ng-template #noAlerts>
       <div class="no-alerts">
         <span class="material-icons">check_circle</span>

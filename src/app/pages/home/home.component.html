@@ -3,12 +3,6 @@
 <div class="home-container">
   <div class="header-row">
     <h2>Tanques registrados</h2>
-    <!-- <img
-      src="assets/images/pdf-icon.png"
-      alt="Descargar PDF"
-      class="pdf-icon"
-      (click)="openModal()"
-    /> -->
   </div>
 
   <app-pdf-modal
@@ -17,63 +11,102 @@
     (closeModal)="closeModal()"
   ></app-pdf-modal>
 
+  <button class="new-tank-button" (click)="openNewTankModal()">
+    <span class="material-icons">add_circle_outline</span>
+    Registrar nuevo tanque
+  </button>
+
+  <!-- Formulario de registro -->
+  <div *ngIf="showNewTankForm" class="new-tank-form mat-elevation-z2">
+    <h3>{{ editMode ? 'Editar tanque' : 'Nuevo tanque' }}</h3>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nombre</mat-label>
+      <input matInput [(ngModel)]="newTank.name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Capacidad (L)</mat-label>
+      <input matInput type="number" [(ngModel)]="newTank.capacity" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nivel actual (L)</mat-label>
+      <input matInput type="number" [(ngModel)]="newTank.currentLevel" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nivel crítico (L)</mat-label>
+      <input matInput type="number" [(ngModel)]="newTank.criticalLevel" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nivel óptimo (L)</mat-label>
+      <input matInput type="number" [(ngModel)]="newTank.optimalLevel" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Dirección</mat-label>
+      <input matInput [(ngModel)]="newTank.location.address" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Latitud</mat-label>
+      <input matInput type="number" [(ngModel)]="newTank.location.latitude" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Longitud</mat-label>
+      <input matInput type="number" [(ngModel)]="newTank.location.longitude" />
+    </mat-form-field>
+
+    <div class="form-action-buttons">
+      <button class="view-detail-button" (click)="saveTank()">
+        {{ editMode ? 'Actualizar' : 'Guardar' }}
+      </button>
+      <button class="view-detail-button cancel" (click)="cancelNewTank()">
+        Cancelar
+      </button>
+    </div>
+  </div>
+
+  <!-- Tarjetas de tanques -->
   <div class="tank-grid">
     <div class="card" *ngFor="let tank of tanks; let i = index">
-      <h3>Estado del Agua - Tanque {{ i + 1 }}</h3>
+      <h3>{{ tank.name }}</h3>
 
       <div class="water-status-detail">
-        <img src="assets/images/ph-icon.png" alt="pH" width="24" />
-        <strong>pH:</strong> {{ tank.calidad.ph }}
+        <strong>Capacidad:</strong> {{ tank.capacity }} L
       </div>
-
       <div class="water-status-detail">
-        <img src="assets/images/temperature-icon.png" alt="Temperatura" width="24" />
-        <strong>Temperatura:</strong> {{ tank.calidad.temperatura }} °C
+        <strong>Nivel Actual:</strong> {{ tank.currentLevel }} L
       </div>
-
       <div class="water-status-detail">
-        <img src="assets/images/volume-icon.png" alt="Conductividad" width="24" />
-        <strong>Conductividad:</strong> {{ tank.calidad.conductividad }} µS/cm
+        <strong>Nivel Crítico:</strong> {{ tank.criticalLevel }} L
       </div>
-
       <div class="water-status-detail">
-        <img src="assets/images/volume-icon.png" alt="Turbidez" width="24" />
-        <strong>Turbidez:</strong> {{ tank.calidad.turbidez }} NTU
+        <strong>Nivel Óptimo:</strong> {{ tank.optimalLevel }} L
       </div>
-
-      <h3>Nivel del Agua</h3>
-
       <div class="water-status-detail">
-        <img src="assets/images/volume-icon.png" alt="Volumen" width="24" />
-        <strong>Volumen:</strong> {{ tank.nivel.porcentaje }} %
+        <strong>Estado:</strong> {{ tank.status }}
       </div>
-
-      <div class="progress-bar-container">
-        <div class="progress-bar" [style.width.%]="tank.nivel.porcentaje"></div>
-      </div>
-
       <div class="water-status-detail">
-        <strong>Estado del Tanque:</strong>
-        <span class="status-badge" [ngClass]="getStatusClass(tank.nivel.porcentaje)">
-          ● {{ getStatus(tank.nivel.porcentaje) }}
-        </span>
+        <strong>Bomba:</strong> {{ tank.pumpActive ? 'Activa' : 'Inactiva' }}
       </div>
-
-      <!-- <div class="water-status-detail">
-        <strong>Estado de Bomba:</strong> 🔌 Activo
-      </div> -->
-
       <div class="water-status-detail">
-        <strong>Última act.:</strong> {{ tank.nivel.fechaMedicion | date: 'short' }}
+        <strong>Ubicación:</strong> {{ tank.location.address }}
+      </div>
+      <div class="water-status-detail">
+        <strong>Última actualización:</strong> {{ tank.lastUpdated | date: 'short' }}
       </div>
 
-      <div class="water-status-detail" style="justify-content: end;">
-        <button
-          class="view-detail-button"
-          [routerLink]="['/tank-detail', tank.id]"
-        >
+      <!-- Botones de acción -->
+      <div class="tank-actions">
+        <button class="view-detail-button" [routerLink]="['/tank-detail', tank.id]">
           Ver detalles
         </button>
+        <button class="edit-button" (click)="editTank(tank)">Editar</button>
+        <button class="delete-button" (click)="deleteTank(tank.id)">Eliminar</button>
       </div>
     </div>
   </div>

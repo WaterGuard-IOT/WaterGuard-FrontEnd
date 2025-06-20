@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Tank } from '../../models/tank/tank.model';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +25,9 @@ export class TankService {
   getTanksByUser(userId: number): Observable<Tank[]> {
     return this.http.get<Tank[]>(`${this.apiUrl}/usuario/${userId}/tanques`, {
       headers: this.getHeaders(),
-    });
+    }).pipe(
+      tap((data) => console.log('Tanques recibidos:', data))
+    );
   }
 
   /** Obtener un tanque específico por su ID */
@@ -50,5 +53,26 @@ export class TankService {
       data,
       { headers: this.getHeaders() }
     );
+  }
+
+  /** Crear un nuevo tanque */
+  createTank(tank: Tank): Observable<Tank> {
+    return this.http.post<Tank>(`${this.apiUrl}/tanque`, tank, {
+      headers: this.getHeaders()
+    });
+  }
+
+  /** Actualizar un tanque existente */
+  updateTank(tankId: number, tankData: Partial<Tank>): Observable<Tank> {
+    return this.http.put<Tank>(`${this.apiUrl}/tanque/${tankId}`, tankData, {
+      headers: this.getHeaders()
+    });
+  }
+
+  /** Eliminar un tanque */
+  deleteTank(tankId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/tanque/${tankId}`, {
+      headers: this.getHeaders()
+    });
   }
 }

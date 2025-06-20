@@ -157,16 +157,116 @@ th, td {
   color: #f9a825;
 }
 
+.form-action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
 .view-detail-button {
   background-color: #1976d2;
   color: white;
-  padding: 8px 14px;
   border: none;
+  padding: 10px 16px;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.3s ease;
 }
 
 .view-detail-button:hover {
-  background-color: #1565c0;
+  background-color: #155a9c;
 }
+
+.view-detail-button.cancel {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.view-detail-button.cancel:hover {
+  background-color: #cacaca;
+}
+
+
+.new-tank-button {
+  margin-bottom: 16px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  font-size: 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.new-tank-button:hover {
+  background-color: #155a9c;
+}
+
+.new-tank-button .material-icons {
+  font-size: 20px;
+}
+
+
+.full-width {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.button-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.new-tank-form {
+  padding: 20px;
+  background-color: #fefefe;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+
+.tank-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.edit-button,
+.delete-button {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+
+/* Botón Editar */
+.edit-button {
+  background-color: #388e3c;
+}
+
+.edit-button:hover {
+  background-color: #2e7d32;
+}
+
+/* Botón Eliminar */
+.delete-button {
+  background-color: #e53935;
+}
+
+.delete-button:hover {
+  background-color: #b71c1c;
+}
+

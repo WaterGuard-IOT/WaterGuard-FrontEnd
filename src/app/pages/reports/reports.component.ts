@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ToolbarComponent } from '../../components/toolbar/toolbar.component';
 import { RouterModule } from '@angular/router';
 import { TankService } from '../../data/services/tank/tank.service';
+import { AlertService } from '../../data/services/alert/alert.service';
+import { Alert } from '../../data/models/alert/alert.model';
 import { Tank } from '../../data/models/tank/tank.model';
 import { CommonModule } from '@angular/common';
 
@@ -16,21 +18,14 @@ export class ReportsComponent implements OnInit {
   waterLevel: number = 0;
   waterStatus: string = 'Sin datos';
   totalTanks: number = 0;
-  alerts: string[] = [];
+  alerts: Alert[] = [];
 
-  // Umbrales configurables
-  phMin: number = 6.5;
-  phMax: number = 8.5;
-  tempMin: number = 15;
-  tempMax: number = 25;
-  nivelCritico: number = 25;
-  nivelOptimo: number = 80;
-
-  constructor(private tankService: TankService) {}
+  constructor(
+    private tankService: TankService,
+    private alertService: AlertService
+  ) {}
 
   ngOnInit(): void {
-    this.loadThresholds();
-
     const userId = localStorage.getItem('userId');
     if (!userId) return;
 
@@ -39,52 +34,118 @@ export class ReportsComponent implements OnInit {
         this.totalTanks = tanks.length;
 
         if (tanks.length > 0) {
-          const lastTank = tanks[0];
-          this.waterLevel = lastTank.nivel?.porcentaje ?? 0;
-          this.waterStatus = `pH: ${lastTank.calidad?.ph ?? 'N/A'}`;
+  const lastTank = tanks[0];
 
-          // Recorremos todos los tanques para detectar alertas
-          this.alerts = [];
-          tanks.forEach((tank) => {
-            this.generateAlerts(tank);
-          });
-        }
+  const porcentaje =
+    lastTank.nivel?.porcentaje ??
+    (lastTank.currentLevel && lastTank.capacity
+      ? (lastTank.currentLevel / lastTank.capacity) * 100
+      : 0);
+
+  this.waterLevel = Math.round(porcentaje);
+
+  this.waterStatus = lastTank.calidad?.ph !== undefined
+  ? `pH: ${lastTank.calidad.ph}`
+  : 'Pendiente de medición';
+
+}
+
+
+        tanks.forEach((tank) => {
+          this.generateAndCreateAlerts(tank);
+          this.fetchAlertsByTank(tank.id);
+        });
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error al cargar los tanques:', err);
       }
     });
   }
 
-  private loadThresholds(): void {
-    this.phMin = Number(localStorage.getItem('phMin') ?? 6.5);
-    this.phMax = Number(localStorage.getItem('phMax') ?? 8.5);
-    this.tempMin = Number(localStorage.getItem('tempMin') ?? 15);
-    this.tempMax = Number(localStorage.getItem('tempMax') ?? 25);
-    this.nivelCritico = Number(localStorage.getItem('nivelCritico') ?? 25);
-    this.nivelOptimo = Number(localStorage.getItem('nivelOptimo') ?? 80);
+  fetchAlertsByTank(tankId: number): void {
+    this.alertService.getAlertsByTank(tankId.toString()).subscribe({
+      next: (alerts: Alert[]) => {
+        const unresolved = alerts.filter(a => !a.resolved);
+
+        this.alerts = [
+          ...this.alerts,
+          ...unresolved.filter(a => !this.alerts.some(existing => existing.id === a.id))
+        ];
+
+        this.alerts.sort((a, b) => {
+          const dateA = a.timestamp ? new Date(a.timestamp).getTime() : 0;
+          const dateB = b.timestamp ? new Date(b.timestamp).getTime() : 0;
+          return dateB - dateA;
+        });
+
+        this.alerts = this.alerts.slice(0, 5);
+      },
+      error: (err: any) => {
+        console.error('Error al obtener alertas:', err);
+      }
+    });
   }
 
-  private generateAlerts(tank: Tank): void {
-    if (tank.nivel?.porcentaje < this.nivelCritico) {
-      this.alerts.push(`Tanque #${tank.id}: Nivel crítico (< ${this.nivelCritico}%)`);
-    }
+  generateAndCreateAlerts(tank: Tank): void {
+    const nivel = tank.nivel;
+    const calidad = tank.calidad;
+    const timestamp = new Date().toISOString();
 
-    if (tank.calidad?.ph < this.phMin || tank.calidad?.ph > this.phMax) {
-      this.alerts.push(`Tanque #${tank.id}: pH fuera de rango (${this.phMin} - ${this.phMax}), actual: ${tank.calidad.ph}`);
-    }
+    const porcentaje = nivel?.porcentaje ?? 
+      (tank.currentLevel && tank.capacity
+        ? (tank.currentLevel / tank.capacity) * 100
+        : 0);
 
-    if (tank.calidad?.temperatura < this.tempMin || tank.calidad?.temperatura > this.tempMax) {
-      this.alerts.push(`Tanque #${tank.id}: Temperatura fuera de rango (${this.tempMin}°C - ${this.tempMax}°C), actual: ${tank.calidad.temperatura}°C`);
-    }
+    this.alertService.getAlertsByTank(tank.id.toString()).subscribe(existingAlerts => {
+      const tryCreate = (type: string, severity: string, message: string) => {
+        const exists = existingAlerts.some(a => a.message === message && a.type === type && !a.resolved);
+        if (!exists) {
+          const newAlert: Alert = {
+            tankId: tank.id.toString(),
+            type,
+            severity,
+            message,
+            timestamp,
+            resolved: false,
+            pumpActivated: tank.pumpActive
+          };
+          this.alertService.createAlert(newAlert).subscribe();
+        }
+      };
 
-    if (tank.calidad?.turbidez > 5) {
-      this.alerts.push(`Tanque #${tank.id}: Alta turbidez detectada (${tank.calidad.turbidez} NTU)`);
-    }
+      if (porcentaje < 25) {
+        tryCreate('Nivel de Agua', 'CRITICO', `Nivel crítico detectado: ${porcentaje.toFixed(1)}%`);
+      }
 
-    if (tank.nivel?.porcentaje > this.nivelOptimo) {
-      this.alerts.push(`Tanque #${tank.id}: Nivel superior al óptimo (> ${this.nivelOptimo}%)`);
-    }
+      if (porcentaje > 80) {
+        tryCreate('Nivel de Agua', 'MODERADO', `Nivel por encima del óptimo: ${porcentaje.toFixed(1)}%`);
+      }
 
+      if (calidad?.ph !== undefined && (calidad.ph < 6.5 || calidad.ph > 8.5)) {
+        tryCreate('pH', 'ALTO', `pH fuera de rango (${calidad.ph})`);
+      }
+
+      if (calidad?.temperatura !== undefined && (calidad.temperatura < 15 || calidad.temperatura > 25)) {
+        tryCreate('Temperatura', 'MODERADO', `Temperatura anormal: ${calidad.temperatura}°C`);
+      }
+
+      if (calidad?.turbidez !== undefined && calidad.turbidez > 5) {
+        tryCreate('Turbidez', 'MODERADO', `Alta turbidez: ${calidad.turbidez} NTU`);
+      }
+    });
   }
+
+  markAsResolved(alert: Alert): void {
+  const updated = { ...alert, resolved: true };
+  this.alertService.updateAlert(alert.id!, updated).subscribe(() => {
+    this.alerts = this.alerts.filter(a => a.id !== alert.id);
+  });
+}
+
+deleteAlert(alert: Alert): void {
+  this.alertService.deleteAlert(alert.id!).subscribe(() => {
+    this.alerts = this.alerts.filter(a => a.id !== alert.id);
+  });
+}
+
 }

@@ -22,10 +22,15 @@
     </thead>
     <tbody>
       <tr *ngFor="let tank of tanks">
-        <td>{{ tank.nivel.fechaMedicion | date:'short' }}</td>
-        <td>{{ tank.nivel.porcentaje }}%</td>
-        <td>{{ mapVolumenToMensajes(tank.nivel.porcentaje).accion }}</td>
-        <td>{{ mapVolumenToMensajes(tank.nivel.porcentaje).resultado }}</td>
+        <ng-container *ngIf="tank.nivel as nivel">
+          <td>{{ nivel.fechaMedicion | date:'short' }}</td>
+          <td>{{ nivel.porcentaje }}%</td>
+          <td>{{ mapVolumenToMensajes(nivel.porcentaje).accion }}</td>
+          <td>{{ mapVolumenToMensajes(nivel.porcentaje).resultado }}</td>
+        </ng-container>
+        <ng-container *ngIf="!tank.nivel">
+          <td colspan="4">Sin datos disponibles</td>
+        </ng-container>
       </tr>
     </tbody>
   </table>

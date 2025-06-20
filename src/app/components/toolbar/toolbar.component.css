@@ -55,6 +55,23 @@
   background-color: transparent;
 }
 
+.logout-button .material-icons {
+  background: none;
+  border: none;
+  color: #ff4d4f; 
+  cursor: pointer;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.logout-button:hover .material-icons {
+  transform: scale(1.1);
+  color: #e60000; /* Un rojo más intenso al hacer hover */
+}
+
+
 /* Responsive */
 @media (max-width: 600px) {
   .toolbar {

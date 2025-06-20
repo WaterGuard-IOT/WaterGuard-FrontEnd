@@ -141,44 +141,7 @@ h2 {
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .quality-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .water-tank {
-    width: 100px;
-    height: 180px;
-  }
-
-  .quality-box {
-    padding: 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .tank-detail-container {
-    padding: 10px;
-  }
-
-  h2 {
-    font-size: 20px;
-  }
-
-  .section-title {
-    font-size: 16px;
-  }
-
-  .quality-box .value {
-    font-size: 18px;
-  }
-
-  .status-badge {
-    font-size: 12px;
-  }
-}
-
+/* Botón bomba */
 .pump-control {
   margin: 24px auto;
   text-align: center;
@@ -222,11 +185,11 @@ h2 {
 
 .status-icon {
   font-size: 20px;
-  color: #4caf50; /* Verde para OK */
+  color: #4caf50;
 }
 
 .pump-button.on ~ .pump-message .status-icon {
-  color: #f44336; /* Rojo cuando está desactivado */
+  color: #f44336;
 }
 
 .download-button-wrapper {
@@ -250,4 +213,76 @@ h2 {
 
 .download-btn:hover {
   background-color: #115293;
+}
+
+/* ✅ Responsive con un solo @media */
+@media (max-width: 768px) {
+  .tank-detail-container {
+    padding: 10px;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .sub-info {
+    font-size: 13px;
+  }
+
+  .section-title {
+    font-size: 16px;
+    margin-top: 20px;
+  }
+
+  .quality-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quality-box {
+    padding: 12px;
+  }
+
+  .quality-box .value {
+    font-size: 18px;
+  }
+
+  .status-badge {
+    font-size: 12px;
+  }
+
+  .water-tank {
+    width: 80px;
+    height: 150px;
+  }
+
+  .water-fill {
+    font-size: 14px;
+  }
+
+  .pump-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .pump-message {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+  }
+
+  .download-button-wrapper {
+    justify-content: center;
+    margin: 16px 0;
+  }
+
+  .history-graph {
+    max-width: 100%;
+  }
+
+  .download-btn {
+    width: 100%;
+    max-width: 200px;
+    justify-content: center;
+  }
 }
